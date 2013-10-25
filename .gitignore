@@ -1,1 +1,4 @@
 *.sublime-*
+
+/bin
+/src/index.html
