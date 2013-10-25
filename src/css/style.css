@@ -1,1 +1,15 @@
+#toolbox {
+	position: absolute;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	width: 300px;
+}
 
+.shape {
+	display: inline-block;
+}
+
+.circle {
+	border-radius: 50%;
+}
