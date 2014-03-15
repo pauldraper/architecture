@@ -1,72 +1,68 @@
 goog.provide('arch.shape.Shape');
 
+goog.require('arch.array');
 goog.require('arch.dom');
-goog.require('arch.math.Point');
-goog.require('arch.view.Circle');
+goog.require('goog.events.EventTarget');
+goog.require('goog.math.Coordinate');
 
 /**
  * @constructor
+ * @extends {goog.events.EventTarget}
  * @param {string} url
+ * @param {!goog.math.Coordinate} size
  */
-arch.shape.Shape = function(url) {
+arch.shape.Shape = function(url, size) {
+	goog.events.EventTarget.call(this);
+
 	var self = this;
 
-	/** @type {!Array.<arch.view.Circle>} */
-	this.hints = [];
+	/** @const */
+	this.url = url;
 
-	/** @type {!jQuery} */
-	this.dom = $('<div class="shape"></div>').draggable({
-		'drag': function(event) {
-			// self.showHints();
-		},
-		'stop': function() {
-			// self.hideHints();
-		},
-		'containment': 'document'
-	}).mousedown(function() {
-		self.showHints();
-	}).mouseup(function() {
-		self.hideHints();
-	}).append($('<img>').prop('src', url));
+	this.size = size;
 
-	this.buildHints();
-	this.hideHints();
+	/** @type {!goog.math.Coordinate} */
+	this.position = new goog.math.Coordinate;
+
+	/** @type {!Array.<arch.shape.Connection>} */
+	this.connections = [];
+};
+goog.mixin(arch.shape.Shape.prototype, goog.events.EventTarget.prototype);
+
+/**
+ * @return {!goog.math.Coordinate}
+ */
+arch.shape.Shape.prototype.getPosition = function() {
+	return this.position;
 };
 
 /**
- * @return {!Array.<arch.math.Point>}
+ * @param {!goog.math.Coordinate} position
  */
-arch.shape.Shape.prototype.getHintPositions = function() {
-	return [];
+arch.shape.Shape.prototype.setPosition = function(position) {
+	this.position = position;
+	this.fireListeners('position', false, this.position);
 };
 
-arch.shape.Shape.prototype.buildHints = function() {
-	this.hints.forEach(function(hint) {
-		hint.destroy();
-	})
-	this.hints = this.getHintPositions().map(function(position) {
-		return new arch.view.Circle(this.dom, 10, {
-			css: {'background-color':'#006600', 'opacity':'.8'},
-			position: arch.math.Point.add(position)
-		});
-	}, this);
-}
+/**
+ * @param {!goog.math.Coordinate} position
+ * @return {!goog.math.Coordinate}
+ */
+arch.shape.Shape.prototype.toAbsolute = function(position) {
+	return goog.math.Coordinate.sum(this.getPosition(), position.scale(this.size.x, this.size.y));
+};
 
 /**
- * @param {arch.math.Circle} position
- * @private
+ * @return {!Array.<arch.shape.Connection>}
  */
-arch.shape.Shape.prototype.showHints = function() {
-	this.hints.forEach(function(hint) {
-		hint.show();
+arch.shape.Shape.prototype.closestConnections = function() {
+	var a = arch.array.minElement(this.connections, function(connection) {
+		var closest = connection.closest();
+		if(closest) {
+			return connection.distance(closest);
+		}
+		return Infinity;
 	});
+	var b = a.closest();
+	return {a:a, b:b};
 };
-
-/**
- * @private
- */
-arch.shape.Shape.prototype.hideHints = function() {
-	this.hints.forEach(function(hint) {
-		hint.hide();
-	});
-}

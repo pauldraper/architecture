@@ -4,12 +4,11 @@
 	top: 0;
 	bottom: 0;
 	width: 300px;
+	background: #8dd3c7
 }
 
 .shape {
+	position: absolute;
 	display: inline-block;
-}
-
-.circle {
-	border-radius: 50%;
+	cursor: move;
 }

@@ -1,15 +1,14 @@
 goog.provide('arch.Client');
 
-goog.require('arch.Gui');
-goog.require('arch.shape.roman');
+goog.require('arch.gui.Gui');
+goog.require('arch.shape.data');
+goog.require('arch.shape.data.parthenon');
 
 /**
  * @constructor
  */
 arch.Client = function() {
-	this.gui = new arch.Gui($(document.body));
+	this.gui = new arch.gui.Gui($('#main'));
 
-	this.gui.toolbox.addShape(new arch.shape.roman.Column);
-	this.gui.toolbox.addShape(new arch.shape.roman.Column);
-	this.gui.toolbox.addShape(new arch.shape.roman.Column);
+	arch.shape.data.toBuilding(arch.shape.data.parthenon);
 };

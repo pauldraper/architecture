@@ -55,6 +55,21 @@ $(TARGET)/js/main.js:
 		-o compiled                           \
 		-f '--language_in=ECMASCRIPT5'        \
         -f '--compilation_level=ADVANCED_OPTIMIZATIONS' \
+        -f '--jscomp_warning=accessControls'    \
+        -f '--jscomp_warning=checkDebuggerStatement' \
+        -f '--jscomp_error=checkDebuggerStatement' \
+        -f '--jscomp_error=checkTypes'        \
+        -f '--jscomp_error=checkVars'         \
+        -f '--jscomp_warning=const'           \
+        -f '--jscomp_warning=constantProperty' \
+        -f '--jscomp_warning=deprecated'      \
+        -f '--jscomp_error=externsValidation' \
+        -f '--jscomp_error=globalThis'        \
+        -f '--jscomp_warning=invalidCasts'    \
+        -f '--jscomp_warning=missingProperties' \
+        -f '--jscomp_error=undefinedNames'    \
+        -f '--jscomp_error=undefinedVars'     \
+        -f '--jscomp_warning=visibility'      \
         $(foreach f,$(JS_EXTERNS),-f '--externs=$(f)' ) \
 		--compiler_jar=$(CLOSURE_COMPILER)    \
 		--output_file=$@
