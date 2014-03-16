@@ -8,7 +8,8 @@ goog.require('arch.shape.data.parthenon');
  * @constructor
  */
 arch.Client = function() {
-	this.gui = new arch.gui.Gui($('#main'));
+	this.gui = new arch.gui.Gui($('#gui'));
 
-	arch.shape.data.toBuilding(arch.shape.data.parthenon);
+	var parthenon = arch.shape.data.toBuilding(arch.shape.data.parthenon);
+	this.gui.setBuilding(parthenon);
 };

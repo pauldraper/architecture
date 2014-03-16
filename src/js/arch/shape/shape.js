@@ -49,20 +49,17 @@ arch.shape.Shape.prototype.setPosition = function(position) {
  * @return {!goog.math.Coordinate}
  */
 arch.shape.Shape.prototype.toAbsolute = function(position) {
-	return goog.math.Coordinate.sum(this.getPosition(), position.scale(this.size.x, this.size.y));
+	return goog.math.Coordinate.sum(this.getPosition(), position.clone().scale(this.size.x, this.size.y));
 };
 
 /**
- * @return {!Array.<arch.shape.Connection>}
+ * @return {{a:!arch.shape.Connection, b:!arch.shape.Connection}}
  */
 arch.shape.Shape.prototype.closestConnections = function() {
 	var a = arch.array.minElement(this.connections, function(connection) {
 		var closest = connection.closest();
-		if(closest) {
-			return connection.distance(closest);
-		}
-		return Infinity;
+		return closest ? connection.distance(closest) : Infinity;
 	});
 	var b = a.closest();
-	return {a:a, b:b};
+	return {a:a, b:/** @type {!arch.shape.Connection} */(b)};
 };

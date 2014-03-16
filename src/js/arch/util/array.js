@@ -20,7 +20,6 @@ arch.array.flatMap = function(array, f, self) {
 /**
  * @param {!Array.<T>} array
  * @param {function(T):number} f
- * @param {number=} max
  * @return {T|undefined}
  * @template T
  */

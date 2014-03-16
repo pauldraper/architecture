@@ -8,22 +8,26 @@ goog.require('goog.math.Coordinate');
 /**
  * @constructor
  * @extends {goog.events.EventHandler}
- * @param {arch.shape.Building} model
+ * @param {!arch.gui.Viewport} viewport
+ * @param {!arch.shape.Building} model
  */
-arch.shape.view.Building = function(parent, model) {
+arch.shape.view.Building = function(viewport, model) {
 	goog.events.EventHandler.call(this);
 
-	/** @const **/
+	/** @const */
+	this.viewport = viewport;
+
+	/** @const */
 	this.model = model;
 
 	/** @type {!jQuery} */
 	this.dom;
-	this.build(parent);
+	this.build(viewport.dom);
 
-	/** @const **/
+	/** @const */
 	this.shapes = this.model.shapes.map(function(shape) {
-		return new arch.shape.view.Shape(this.dom, shape);
-	}, this);
+		return new arch.shape.view.Shape(viewport, shape);
+	});
 	this.shapes.forEach(function(shape) {
 		this.registerDisposable(shape);
 	}, this);
@@ -39,8 +43,10 @@ arch.shape.view.Building.prototype.build = function(parent) {
 };
 
 arch.shape.view.Building.prototype.shuffle = function() {
+	var width = this.viewport.dom.width();
+	var height = this.viewport.dom.height();
 	this.model.shapes.forEach(function(shape) {
-		shape.setPosition(new goog.math.Coordinate(Math.random()*200, Math.random()*100));
+		shape.setPosition(new goog.math.Coordinate(Math.random()*(width-shape.size.x), Math.random()*(height-shape.size.y)));
 	}, this);
 };
 

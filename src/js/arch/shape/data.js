@@ -47,5 +47,5 @@ arch.shape.data.toBuilding = function(data) {
 		});
 	});
 
-	return new arch.shape.Building(data.displayName, data.background, shapes);
+	return new arch.shape.Building(data.building.displayName, data.background, shapes);
 };

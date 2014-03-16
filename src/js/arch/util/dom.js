@@ -9,8 +9,8 @@ goog.require('goog.math.Coordinate');
  * @return {!goog.math.Coordinate}
  */
 arch.dom.getPosition = function(dom) {
-	var offset = dom.offset();
-	return new goog.math.Coordinate(offset['left'], offset['top']);
+	var position = dom.position();
+	return new goog.math.Coordinate(position['left'], position['top']);
 };
 
 /**
@@ -18,7 +18,7 @@ arch.dom.getPosition = function(dom) {
  * @param {!goog.math.Coordinate} position
  */
 arch.dom.setPosition = function(dom, position) {
-	dom.offset({'left':position.x, 'top':position.y});
+	dom.css({'left':position.x, 'top':position.y});
 };
 
 /**

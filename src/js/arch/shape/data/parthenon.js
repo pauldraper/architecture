@@ -1,12 +1,13 @@
 goog.provide('arch.shape.data.parthenon');
 
 arch.shape.data.parthenon = {
+	name: 'Parthenon',
 	background: {
-		img: 'asda',
-		size: {w:400, h:500},
+		img: 'img/greek-background.jpg',
+		repeat: true,
 	},
 	building: {
-		displayName: 'Parthenon',
+		displayName: 'Parthenon - Greece (500BC)',
 		shapes: [
 			'roof',
 			'column',
@@ -38,30 +39,6 @@ arch.shape.data.parthenon = {
 			}, {
 				shape: 'column',
 				position: {x:1/2, y:0}
-			},
-		], [
-			{
-				shape: null,
-				position: {x:1/4, y:1}
-			}, {
-				shape: 'column',
-				position: {x:1/2, y:1}
-			},
-		], [
-			{
-				shape: null,
-				position: {x:2/4, y:1}
-			}, {
-				shape: 'column',
-				position: {x:1/2, y:1}
-			},
-		], [
-			{
-				shape: null,
-				position: {x:3/4, y:1}
-			}, {
-				shape: 'column',
-				position: {x:1/2, y:1}
 			},
 		],
 	],

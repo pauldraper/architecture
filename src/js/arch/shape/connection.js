@@ -13,6 +13,7 @@ arch.shape.Connection = function(shape, position) {
 	this.shape = shape;
 	shape.connections.push(this);
 
+	/** @const */
 	this.position = position;
 
 	/** @type {arch.shape.Connection} */
@@ -52,7 +53,7 @@ arch.shape.Connection.prototype.closest = function() {
 	var self = this;
 	return arch.array.minElement(this.getAvailableConnections(), function(connection) {
 		return self.distance(connection);
-	});
+	}) || null;
 };
 
 /**
@@ -62,10 +63,9 @@ arch.shape.Connection.prototype.connect = function(connection) {
 	this.connected && this.connected.disconnect();
 
 	var curPosition = this.getPosition(),
-		newPosition = this.getPosition();
-	if(goog.math.Coordinate.distance(curPosition, newPosition) > .5) {
-		this.shape.setPosition(newPosition);	
-	}
+		newPosition = connection.getPosition();
+	var offset = goog.math.Coordinate.difference(newPosition, curPosition);
+	this.shape.setPosition(goog.math.Coordinate.sum(this.shape.getPosition(), offset));	
 	
 	this.connected = connection;
 	connection.connected = this;
