@@ -11,7 +11,7 @@ SRC := src
 JS_ROOTS := $(SRC)/js/arch $(CLOSURE_LIBS)
 JS_EXTERNS = $(wildcard $(BUILD)/closure-compiler/externs/*.js)
 
-TARGET := bin
+TARGET := target
 
 .PHONY: force
 

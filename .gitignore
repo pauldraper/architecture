@@ -1,4 +1,4 @@
-*.sublime-*
+*sublime-*
 
-/bin
+/target
 /src/index.html
