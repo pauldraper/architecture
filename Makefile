@@ -55,6 +55,7 @@ $(TARGET)/js/main.js:
 		-o compiled                           \
 		-f '--language_in=ECMASCRIPT5'        \
         -f '--compilation_level=ADVANCED_OPTIMIZATIONS' \
+        -f '--define="goog.DEBUG=false"'      \
         -f '--jscomp_warning=accessControls'    \
         -f '--jscomp_warning=checkDebuggerStatement' \
         -f '--jscomp_error=checkDebuggerStatement' \
