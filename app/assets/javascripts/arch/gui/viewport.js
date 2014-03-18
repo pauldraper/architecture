@@ -36,7 +36,7 @@ arch.gui.Viewport.prototype.setBuilding = function(building) {
  */
 arch.gui.Viewport.prototype.setScale = function(scale) {
 	this.scale = scale;
-	this.fireListeners('scale', false, undefined);
+	this.fireListeners('scale', false, null);
 };
 
 /**

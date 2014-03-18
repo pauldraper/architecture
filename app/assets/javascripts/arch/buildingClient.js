@@ -11,7 +11,7 @@ arch.BuildClient = function() {
 };
 
 /**
- * @param {!Object}
+ * @param {!Object} data
  */
 arch.BuildClient.prototype.setBuildingData = function(data) {
 	var building = arch.shape.data.toBuilding(data);

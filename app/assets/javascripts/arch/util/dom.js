@@ -50,7 +50,7 @@ arch.dom.Disposable = function(dom) {
 };
 
 /**
- * @inheritDocs
+ * @inheritDoc
  */
 arch.dom.Disposable.prototype.dispose = function() {
 	this.dom.remove();
@@ -58,7 +58,7 @@ arch.dom.Disposable.prototype.dispose = function() {
 };
 
 /**
- * @inheritDocs
+ * @inheritDoc
  */
 arch.dom.Disposable.prototype.isDisposed = function() {
 	return !this.dom;

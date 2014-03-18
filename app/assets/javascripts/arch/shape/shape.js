@@ -41,7 +41,7 @@ arch.shape.Shape.prototype.getPosition = function() {
  */
 arch.shape.Shape.prototype.setPosition = function(position) {
 	this.position = position;
-	this.fireListeners('position', false, this.position);
+	this.fireListeners('position', false, null);
 };
 
 /**
