@@ -1,4 +1,4 @@
-@(buildingJson: String)
+@(buildingJson: play.api.libs.json.JsValue)
 @layouts.default {
 	<link rel="stylesheet" href="@routes.Assets.at("stylesheets/building.css")">
 } {
@@ -29,7 +29,7 @@
 		@helpers.script("building", "javascripts/building.js")
 		<script>
 			var client = new arch.BuildClient;
-			client.setBuildingData(@Html(buildingJson));
+			client.setBuildingData(@Html(buildingJson.toString));
 			$('#loading').fadeOut(200);
 		</script>
 	</div>
