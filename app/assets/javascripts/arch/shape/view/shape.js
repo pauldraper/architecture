@@ -42,10 +42,11 @@ arch.shape.view.Shape.prototype.build = function(parent) {
 	var self = this;
 
 	var img = /** @type {!jQuery} */($('<img>').prop('src', this.model.url));;
-	this.dom = $('<div class="shape"></div>').append(img).appendTo(parent)['draggable']({
-		'start': function() {
-			self.dom.css('opacity', '.7');
-		},
+	this.dom = $('<div class="shape"></div>').append(img).appendTo(parent).mousedown(function() {
+		self.dom.css('opacity', '.7');
+	}).mouseup(function() {
+		self.dom.css('opacity', '');
+	})['draggable']({
 		'stop': function() {
 			self.dom.css('opacity', '');
 			self.model.setPosition(arch.dom.getPosition($(this)));
