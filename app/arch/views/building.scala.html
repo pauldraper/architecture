@@ -1,40 +1,36 @@
 @(buildingJson: String)
-<!DOCTYPE html>
-<html>
-	<title>Creative Architecture</title>
-	<head>
-		<link rel="shortcut icon" href="@routes.Assets.at("images/favicon.ico")">
-		<link rel="stylesheet" href="@routes.Assets.at("stylesheets/arch.css")">
-	</head>
-	<body>
-		<div id="loading">
-			<div>
-				Loading...
-			</div>
+@layouts.default {
+	<link rel="stylesheet" href="@routes.Assets.at("stylesheets/building.css")">
+} {
+	<div id="loading">
+		<div>
+			Loading...
 		</div>
+	</div>
 
-		<div id="gui">
-			<div class="title-bar"></div>
-			<div class="viewport"></div>
+	<div id="gui">
+		<div class="viewport"></div>
+		<div class="sidebar">
 			<div class="back-to-map">
 				<img class="map-logo" src="@routes.Assets.at("images/map-icon.png")">
 				<div>Back to map</div>
 			</div>
-			<div class="button-bar" style="position:fixed; right: 10px; top: 60px">
-				<button id="zoom-in-button" class="button button-blue" title="Zoom in">+</button>
-				<button id="zoom-out-button" class="button button-blue" title="Zoom out">-</button>
-			</div>
 		</div>
+		<div class="button-bar" style="position:fixed; right: 10px; top: 60px">
+			<button id="zoom-in-button" class="button button-blue" title="Zoom in">+</button>
+			<button id="zoom-out-button" class="button button-blue" title="Zoom out">-</button>
+		</div>
+		<div class="title-bar"></div>
+	</div>
 
-		<div>
-			<script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
-			<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>
-			@helpers.script("building", "javascripts/building.js")
-			<script>
-				var client = new arch.BuildClient;
-				client.setBuildingData(@Html(buildingJson));
-				$('#loading').fadeOut(200);
-			</script>
-		</div>
-	</body>
-</html>
+	<div>
+		<script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>
+		@helpers.script("building", "javascripts/building.js")
+		<script>
+			var client = new arch.BuildClient;
+			client.setBuildingData(@Html(buildingJson));
+			$('#loading').fadeOut(200);
+		</script>
+	</div>
+}

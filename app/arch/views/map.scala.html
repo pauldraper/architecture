@@ -1,0 +1,21 @@
+@()
+@layouts.default {
+	<link rel="stylesheet" href="@routes.Assets.at("stylesheets/map.css")">
+} {
+	<img class="world-map" src="@routes.Assets.at("images/world-map.svg")" style="display:none">
+
+	<div>
+		<script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+		<script>
+			var mapRatio = 742 / 1603;
+			var width = $(window).width();
+			var height = $(window).height();
+			if(height / width > mapRatio) {
+				$('.world-map').width(width).height(width * mapRatio);
+			} else {
+				$('.world-map').width(height / mapRatio).height(height);
+			}
+			$('.world-map').show();
+		</script>
+	</div>
+}

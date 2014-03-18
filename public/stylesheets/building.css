@@ -33,12 +33,21 @@ body {
 	box-shadow: 0 0 3px 3px rgba(0,0,0,.8);
 }
 
+.sidebar {
+	position: absolute;
+	top: 30px;
+	bottom: 0;
+	width: 120px;
+	background: #eee;
+	border-right: 1px solid #222
+}
+
 .viewport {
 	position: absolute;
 	top: 30px;
 	right: 0;
 	bottom: 0;
-	left: 0;
+	left: 90px;
 }
 
 .shape {
@@ -92,11 +101,11 @@ body {
 
 .back-to-map {
   position: absolute;
-  top: 45px;
+  top: 15px;
   left: 15px;
   text-align: center;
   cursor: pointer;
-  opacity: .75;
+  opacity: .8;
   font-size: 13px;
   line-height: 2px;
 }
