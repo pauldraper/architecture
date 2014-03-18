@@ -35,7 +35,12 @@ arch.gui.Viewport.prototype.setBuilding = function(building) {
  * @param {number} scale
  */
 arch.gui.Viewport.prototype.setScale = function(scale) {
+	var oldCenter = this.toDOMPosition(new goog.math.Coordinate);
 	this.scale = scale;
+	var newCenter = this.toDOMPosition(new goog.math.Coordinate);
+	//TODO: fix
+	this.offset = goog.math.Coordinate.sum(this.offset, goog.math.Coordinate.difference(newCenter, oldCenter));
+	window.console.log(this.offset);
 	this.fireListeners('scale', false, null);
 };
 
