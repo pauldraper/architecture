@@ -42,11 +42,11 @@
 	],
 	shapes: {
 		'column': {
-			img: '/assets/images/column.png',
+			img: '/assets/images/buildings/parthenon/column.png',
 			size: {w:150, h:197},
 		},
 		'roof': {
-			img: '/assets/images/roof.png',
+			img: '/assets/images/buildings/parthenon/roof.png',
 			size: {w:400, h:150},
 		},
 	},

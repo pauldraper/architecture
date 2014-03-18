@@ -90,17 +90,22 @@ body {
 	border-left: none;
 }
 
-.back .arrow-head {
-	width: 0px;
-	height: 0px;
-	border-style: solid;
-	border-width: 25px 30px 25px 0;
-	border-color: transparent #02025A transparent transparent;
-	display: inline-block;
+.back-to-map {
+  position: absolute;
+  top: 45px;
+  left: 15px;
+  text-align: center;
+  cursor: pointer;
+  opacity: .75;
+  font-size: 13px;
+  line-height: 2px;
 }
 
-.back .arrow-tail {
-	display: inline-block;
-	height: 30px;
-	width: 100px;
+.back-to-map:hover {
+  opacity: initial;
+}
+
+.back-to-map .map-logo {
+  height: 48px;
+  width: 48px;
 }
