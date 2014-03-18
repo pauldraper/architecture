@@ -1,0 +1,106 @@
+body {
+	height: 100%;
+	font-family: Arial, sans-serif;
+	margin: 0;
+}
+
+#loading {
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	text-align: center;
+	font-size: 32px;
+	height: 100%;
+	background: #fff;
+}
+
+#loading > div {
+	margin-top: 40%;
+}
+
+.title-bar {
+	position: fixed;
+	height: 30px;
+	line-height: 30px;
+	left: 0;
+	right: 0;
+	background: #02025A;
+	text-align: center;
+	font-size: 14px;
+	color: #fff;
+	box-shadow: 0 0 3px 3px rgba(0,0,0,.8);
+}
+
+.viewport {
+	position: absolute;
+	top: 30px;
+	right: 0;
+	bottom: 0;
+	left: 0;
+}
+
+.shape {
+	position: absolute;
+	display: inline-block;
+	cursor: move;
+}
+
+.button {
+	border: none;
+	border-radius: 3px;
+	width: 50px;
+	height: 30px;
+	display: inline-block;
+	cursor: pointer;
+	margin: 0;
+	font-size: 16p.x;
+}
+
+.button-blue {
+	color: #fff;
+	border: 1px solid #02025A;
+	background: linear-gradient(to bottom, #02025A, #17176f, #17176f, #02025A);
+}
+
+.button-blue:focus {
+	outline: none; /** TODO: do something else */
+}
+
+.button-blue:hover {
+	background: linear-gradient(to bottom, #22227A, #17176f, #17176f, #22227A);
+}
+
+.button-bar > .button {
+	float: left;
+}
+
+.button-bar > .button:not(:first-child) {
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0;
+}
+
+.button-bar > .button:not(:last-child) {
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 0;
+}
+
+.button-bar > .button:not(:first-child) {
+	border-left: none;
+}
+
+.back .arrow-head {
+	width: 0px;
+	height: 0px;
+	border-style: solid;
+	border-width: 25px 30px 25px 0;
+	border-color: transparent #02025A transparent transparent;
+	display: inline-block;
+}
+
+.back .arrow-tail {
+	display: inline-block;
+	height: 30px;
+	width: 100px;
+}

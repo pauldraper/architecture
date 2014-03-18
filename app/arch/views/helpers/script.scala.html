@@ -1,0 +1,7 @@
+@(id:String, path:String)
+
+@if(play.Play.application.isDev) {
+  <script src="http://localhost:9810/compile?id=@id"></script>
+} else {
+  <script src="@routes.Assets.at(path)"></script>
+}
