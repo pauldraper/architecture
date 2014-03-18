@@ -29,7 +29,7 @@
 		<div>
 			<script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
 			<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>
-			@helpers.script("build", "javascripts/build.js")
+			@helpers.script("building", "javascripts/building.js")
 			<script>
 				var client = new arch.BuildClient;
 				client.setBuildingData(@Html(buildingJson));

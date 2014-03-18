@@ -1,0 +1,7 @@
+{
+	"id": "building",
+	"inherits": "base.json",
+	"inputs": [
+		"../../app/assets/javascripts/arch/building.js"
+	]
+}
