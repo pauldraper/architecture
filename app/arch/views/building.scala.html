@@ -28,7 +28,7 @@
 		<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
 		@helpers.script("building", "javascripts/building.js")
 		<script>
-			var client = new arch.BuildClient;
+			var client = new arch.client.BuildingClient;
 			client.setBuildingData(@Html(buildingJson.toString));
 			$('#loading').fadeOut(200);
 		</script>

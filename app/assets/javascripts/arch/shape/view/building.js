@@ -8,7 +8,7 @@ goog.require('goog.math.Coordinate');
 /**
  * @constructor
  * @extends {goog.events.EventHandler}
- * @param {!arch.gui.Viewport} viewport
+ * @param {!arch.gui.building.Viewport} viewport
  * @param {!arch.shape.Building} model
  */
 arch.shape.view.Building = function(viewport, model) {

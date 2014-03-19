@@ -2,19 +2,17 @@
 @layouts.default {
 	<link rel="stylesheet" href="@routes.Assets.at("stylesheets/map.css")">
 } {
-	<img class="world-map" src="@routes.Assets.at("images/world-map.svg")" style="display:none">
+	<div id="gui">
+		<div class="world-map-container">
+			<img class="world-map" src="@routes.Assets.at("images/world-map.svg")" style="display:none">
+		</div>
+	</div>
 
 	<div>
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+		@helpers.script("map", "javascripts/map.js")
 		<script>
-			var mapRatio = 742 / 1603;
-			var width = $(window).width();
-			var height = $(window).height();
-			if(height / width > mapRatio) {
-				$('.world-map').width(width).height(width * mapRatio);
-			} else {
-				$('.world-map').width(height / mapRatio).height(height);
-			}
+			var client = new arch.client.MapClient;
 			$('.world-map').show();
 		</script>
 	</div>

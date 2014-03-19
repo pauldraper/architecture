@@ -7,7 +7,7 @@ goog.require('goog.events.EventHandler');
 /**
  * @constructor
  * @extends {goog.events.EventHandler}
- * @param {!arch.gui.Viewport} viewport
+ * @param {!arch.gui.building.Viewport} viewport
  * @param {!arch.shape.Shape} model
  */
 arch.shape.view.Shape = function(viewport, model) {
@@ -47,11 +47,14 @@ arch.shape.view.Shape.prototype.build = function(parent) {
 	}).mouseup(function() {
 		self.dom.css('opacity', '');
 	})['draggable']({
+		'start': function() {
+			self.model.disconnect();
+		},
 		'stop': function() {
 			self.dom.css('opacity', '');
 			self.model.setPosition(arch.dom.getPosition($(this)));
 			var c = self.model.closestConnections();
-			if(c.a.distance(c.b) < 50) {
+			if(c && c.a.distance(c.b) < 50) {
 				c.a.connect(c.b);
 				self.emphasize();
 			}

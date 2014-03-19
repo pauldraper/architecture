@@ -11,7 +11,7 @@ goog.require('goog.math.Coordinate');
  * @return {!arch.shape.Shape}
  */
 arch.shape.data.toShape = function(data) {
-	var size = new goog.math.Coordinate(data['size']['w'], data['size']['h']);
+	var size = new goog.math.Coordinate(data['size']['w']/2, data['size']['h']/2);
 	return new arch.shape.Shape(data['img'], size);
 };
 

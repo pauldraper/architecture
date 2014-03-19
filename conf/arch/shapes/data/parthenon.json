@@ -7,47 +7,174 @@
 	"building": {
 		"displayName": "Parthenon - Greece (438BC)",
 		"shapes": [
-			"roof",
+			"bottom",
 			"column",
 			"column",
-			"column"
+			"column",
+			"column",
+			"column",
+			"column",
+			"column",
+			"column",
+			"middle",
+			"top"
 		]
 	},
 	"connections": [
 		[
 			{
-				"shape": "roof",
-				"position": {"x":0.25, "y":1}
+				"shape": "bottom",
+				"position": {"x":0.11, "y":0}
 			}, {
 				"shape": "column",
-				"position": {"x":0.5, "y":0}
-			}
-		], [
-			{
-				"shape": "roof",
 				"position": {"x":0.5, "y":1}
+			}
+		], [
+			{
+				"shape": "bottom",
+				"position": {"x":0.22, "y":0}
+			}, {
+				"shape": "column",
+				"position": {"x":0.5, "y":1}
+			}
+		], [
+			{
+				"shape": "bottom",
+				"position": {"x":0.33, "y":0}
+			}, {
+				"shape": "column",
+				"position": {"x":0.5, "y":1}
+			}
+		], [
+			{
+				"shape": "bottom",
+				"position": {"x":0.44, "y":0}
+			}, {
+				"shape": "column",
+				"position": {"x":0.5, "y":1}
+			}
+		], [
+			{
+				"shape": "bottom",
+				"position": {"x":0.55, "y":0}
+			}, {
+				"shape": "column",
+				"position": {"x":0.5, "y":1}
+			}
+		], [
+			{
+				"shape": "bottom",
+				"position": {"x":0.66, "y":0}
+			}, {
+				"shape": "column",
+				"position": {"x":0.5, "y":1}
+			}
+		], [
+			{
+				"shape": "bottom",
+				"position": {"x":0.77, "y":0}
+			}, {
+				"shape": "column",
+				"position": {"x":0.5, "y":1}
+			}
+		], [
+			{
+				"shape": "bottom",
+				"position": {"x":0.88, "y":0}
+			}, {
+				"shape": "column",
+				"position": {"x":0.5, "y":1}
+			}
+		], [
+			{
+				"shape": "middle",
+				"position": {"x":0.11, "y":1}
 			}, {
 				"shape": "column",
 				"position": {"x":0.5, "y":0}
 			}
 		], [
 			{
-				"shape": "roof",
-				"position": {"x":0.75, "y":1}
+				"shape": "middle",
+				"position": {"x":0.22, "y":1}
 			}, {
 				"shape": "column",
 				"position": {"x":0.5, "y":0}
+			}
+		], [
+			{
+				"shape": "middle",
+				"position": {"x":0.33, "y":1}
+			}, {
+				"shape": "column",
+				"position": {"x":0.5, "y":0}
+			}
+		], [
+			{
+				"shape": "middle",
+				"position": {"x":0.44, "y":1}
+			}, {
+				"shape": "column",
+				"position": {"x":0.5, "y":0}
+			}
+		], [
+			{
+				"shape": "middle",
+				"position": {"x":0.55, "y":1}
+			}, {
+				"shape": "column",
+				"position": {"x":0.5, "y":0}
+			}
+		], [
+			{
+				"shape": "middle",
+				"position": {"x":0.66, "y":1}
+			}, {
+				"shape": "column",
+				"position": {"x":0.5, "y":0}
+			}
+		], [
+			{
+				"shape": "middle",
+				"position": {"x":0.77, "y":1}
+			}, {
+				"shape": "column",
+				"position": {"x":0.5, "y":0}
+			}
+		], [
+			{
+				"shape": "middle",
+				"position": {"x":0.88, "y":1}
+			}, {
+				"shape": "column",
+				"position": {"x":0.5, "y":0}
+			}
+		], [
+			{
+				"shape": "middle",
+				"position": {"x":0.5, "y":0.05}
+			}, {
+				"shape": "top",
+				"position": {"x":0.5, "y":1}
 			}
 		]
 	],
 	"shapes": {
+		"bottom": {
+			"img": "/assets/images/buildings/parthenon/bottom.png",
+			"size": {"w":1508, "h":76}
+		},
 		"column": {
 			"img": "/assets/images/buildings/parthenon/column.png",
-			"size": {"w":150, "h":197}
+			"size": {"w":109, "h":492}
 		},
-		"roof": {
-			"img": "/assets/images/buildings/parthenon/roof.png",
-			"size": {"w":400, "h":150}
+		"middle": {
+			"img": "/assets/images/buildings/parthenon/middle.png",
+			"size": {"w":1491, "h":138}
+		},
+		"top": {
+			"img": "/assets/images/buildings/parthenon/top.png",
+			"size": {"w":1553, "h":293}
 		}
 	}
 }

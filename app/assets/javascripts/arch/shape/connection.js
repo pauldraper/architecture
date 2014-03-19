@@ -60,7 +60,7 @@ arch.shape.Connection.prototype.closest = function() {
  * @param {!arch.shape.Connection} connection
  */
 arch.shape.Connection.prototype.connect = function(connection) {
-	this.connected && this.connected.disconnect();
+	this.disconnect();
 
 	var curPosition = this.getPosition(),
 		newPosition = connection.getPosition();
@@ -72,8 +72,10 @@ arch.shape.Connection.prototype.connect = function(connection) {
 };
 
 arch.shape.Connection.prototype.disconnect = function() {
-	this.connected && (this.connected.connected = null);
-	this.connected = null;
+	if(this.connected) {
+		this.connected.connected = null;
+		this.connected = null;
+	}
 };
 
 /**

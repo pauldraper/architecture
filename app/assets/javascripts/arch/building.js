@@ -1,9 +1,9 @@
-goog.provide('arch.main');
+goog.provide('arch.building');
 
-goog.require('arch.BuildClient');
+goog.require('arch.client.BuildingClient');
 
 goog.require('goog.events.EventWrapper');
 goog.require('goog.debug.ErrorHandler');
 
-goog.exportSymbol("arch.BuildClient", arch.BuildClient);
-goog.exportProperty(arch.BuildClient.prototype, "setBuildingData", arch.BuildClient.prototype.setBuildingData);
+goog.exportSymbol("arch.client.BuildingClient", arch.client.BuildingClient);
+goog.exportProperty(arch.client.BuildingClient.prototype, "setBuildingData", arch.client.BuildingClient.prototype.setBuildingData);

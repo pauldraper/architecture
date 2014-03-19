@@ -44,6 +44,12 @@ arch.shape.Shape.prototype.setPosition = function(position) {
 	this.fireListeners('position', false, null);
 };
 
+arch.shape.Shape.prototype.disconnect = function() {
+	this.connections.forEach(function(connection) {
+		connection.disconnect();
+	});
+};
+
 /**
  * @param {!goog.math.Coordinate} position
  * @return {!goog.math.Coordinate}
@@ -53,13 +59,13 @@ arch.shape.Shape.prototype.toAbsolute = function(position) {
 };
 
 /**
- * @return {{a:!arch.shape.Connection, b:!arch.shape.Connection}}
+ * @return {?{a:!arch.shape.Connection, b:!arch.shape.Connection}}
  */
 arch.shape.Shape.prototype.closestConnections = function() {
 	var a = arch.array.minElement(this.connections, function(connection) {
 		var closest = connection.closest();
 		return closest ? connection.distance(closest) : Infinity;
 	});
-	var b = a.closest();
-	return {a:a, b:/** @type {!arch.shape.Connection} */(b)};
+	return a ? {a:a, b:/** @type {!arch.shape.Connection} */(a.closest())}
+		: null;
 };

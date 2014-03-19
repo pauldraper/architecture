@@ -25,7 +25,7 @@ arch.dom.setPosition = function(dom, position) {
  * @param {!jQuery} dom
  * @return {!goog.math.Coordinate}
  */
-arch.dom.getSize = function(dom, size) {
+arch.dom.getSize = function(dom) {
 	return new goog.math.Coordinate(
 		/** @type {number} */(dom.width()),
 		/** @type {number} */(dom.height())
@@ -39,6 +39,20 @@ arch.dom.getSize = function(dom, size) {
 arch.dom.setSize = function(dom, size) {
 	dom.width(size.x).height(size.y);
 };
+
+/**
+ * @param {!jQuery} dom
+ * @param {!goog.math.Coordinate} size
+ */
+arch.dom.scaleToSize = function(dom, size) {
+	var ratio = 742 / 1603;
+	if(size.y / size.x > ratio) {
+		dom.width(size.x).height(size.x * ratio);
+	} else {
+		dom.width(size.y / ratio).height(size.y);
+	}
+};
+
 
 /**
  * @constructor
@@ -63,4 +77,3 @@ arch.dom.Disposable.prototype.dispose = function() {
 arch.dom.Disposable.prototype.isDisposed = function() {
 	return !this.dom;
 };
-
