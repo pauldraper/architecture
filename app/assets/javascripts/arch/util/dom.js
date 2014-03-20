@@ -8,6 +8,15 @@ goog.require('goog.math.Coordinate');
  * @param {!jQuery} dom
  * @return {!goog.math.Coordinate}
  */
+arch.dom.getDocumentPosition = function(dom) {
+	var position = dom.offset();
+	return new goog.math.Coordinate(position['left'], position['top']);
+};
+
+/**
+ * @param {!jQuery} dom
+ * @return {!goog.math.Coordinate}
+ */
 arch.dom.getPosition = function(dom) {
 	var position = dom.position();
 	return new goog.math.Coordinate(position['left'], position['top']);

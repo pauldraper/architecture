@@ -12,8 +12,45 @@ goog.require('goog.math.Coordinate');
 arch.gui.building.Viewport = function(gui) {
 	goog.events.EventTarget.call(this);
 
+	var self = this;
+
+	/** @type {?{
+	 *    shape: !arch.shape.view.Shape,
+	 *    originalPosition: !goog.math.Coordinate,
+	 *    anchor: !goog.math.Coordinate
+	 *  }}
+	 */
+	this.dragInfo = null;
+
 	/** @type {!jQuery} */
 	this.dom = gui.dom.children('.viewport');
+	this.dom.mousedown(function(e) {
+		if(self.dragInfo) {
+			self.dragInfo.shape.stopMove();
+		}
+		var position = self.fromDomPosition(self.eventDomPosition(e));
+		var shape = self.getShapeAt(position);
+		if(shape) {
+			self.dragInfo = {
+				shape: shape,
+				originalPosition: shape.model.getPosition(),
+				anchor: position
+			};
+			self.dragInfo.shape.startMove();
+		}
+	});
+	this.dom.mousemove(function(e) {
+		if(self.dragInfo) {
+			var position = self.fromDomPosition(self.eventDomPosition(e));
+			self.dragInfo.shape.move(goog.math.Coordinate.sum(self.dragInfo.originalPosition, goog.math.Coordinate.difference(position, self.dragInfo.anchor)));
+		}
+	});
+	this.dom.mouseup(function() {
+		if(self.dragInfo) {
+			self.dragInfo.shape.stopMove();
+			self.dragInfo = null;
+		}
+	});
 
 	/** @type {arch.shape.view.Building} */
 	this.building = null;
@@ -24,9 +61,11 @@ arch.gui.building.Viewport = function(gui) {
 };
 goog.mixin(arch.gui.building.Viewport.prototype, goog.events.EventTarget.prototype);
 
+arch.gui.building.Viewport.prototype.eventDomPosition = function(e) {
+	return goog.math.Coordinate.difference(new goog.math.Coordinate(e.pageX, e.pageY), arch.dom.getDocumentPosition(this.dom));
+};
+
 arch.gui.building.Viewport.prototype.setBuilding = function(building) {
-	//this.dom.css('background', 'url('+building.background.img+')');
-	//this.dom.css('filter', 'alpha(opacity=50)');
 	this.building = new arch.shape.view.Building(this, building);
 	this.building.shuffle();
 };
@@ -35,25 +74,58 @@ arch.gui.building.Viewport.prototype.setBuilding = function(building) {
  * @param {number} scale
  */
 arch.gui.building.Viewport.prototype.setScale = function(scale) {
-	var oldCenter = this.toDOMPosition(new goog.math.Coordinate);
+	var oldCenter = this.toDomPosition(new goog.math.Coordinate);
 	this.scale = scale;
-	var newCenter = this.toDOMPosition(new goog.math.Coordinate);
+	var newCenter = this.toDomPosition(new goog.math.Coordinate);
 	//TODO: fix
 	this.offset = goog.math.Coordinate.sum(this.offset, goog.math.Coordinate.difference(newCenter, oldCenter));
-	window.console.log(this.offset);
 	this.fireListeners('scale', false, null);
 };
 
 /**
  * @param {!goog.math.Coordinate} position
  */
-arch.gui.building.Viewport.prototype.toDOMPosition = function(position) {
-	return goog.math.Coordinate.sum(this.toDOMSize(position), this.offset);
+arch.gui.building.Viewport.prototype.toDomPosition = function(position) {
+	return goog.math.Coordinate.sum(this.toDomSize(position), this.offset);
 };
 
 /**
  * @param {!goog.math.Coordinate} size
  */
-arch.gui.building.Viewport.prototype.toDOMSize = function(size) {
+arch.gui.building.Viewport.prototype.toDomSize = function(size) {
 	return size.clone().scale(this.scale);
+};
+
+/**
+ * @param {!goog.math.Coordinate} position
+ */
+arch.gui.building.Viewport.prototype.fromDomPosition = function(position) {
+	return goog.math.Coordinate.difference(this.fromDomSize(position), this.offset);
+};
+
+/**
+ * @param {!goog.math.Coordinate} size
+ */
+arch.gui.building.Viewport.prototype.fromDomSize = function(size) {
+	return size.clone().scale(1 / this.scale);
+};
+
+/**
+ * @param {!goog.math.Coordinate} position
+ * @return {arch.shape.view.Shape}
+ */
+arch.gui.building.Viewport.prototype.getShapeAt = function(position) {
+	var shape = null;
+	this.building.shapes.forEach(function(view) {
+		if((!shape || shape.dom.zIndex() <= view.dom.zIndex()) && view.hitTest(position)) {
+			shape = view;
+		}
+	});
+	return shape;
+};
+
+arch.gui.building.Viewport.prototype.maxZIndex = function() {
+	return Math.max.apply(Math, this.building.shapes.map(function(shape) {
+		return shape.dom.zIndex();
+	}));
 };

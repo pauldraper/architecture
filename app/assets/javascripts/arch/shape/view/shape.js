@@ -41,43 +41,43 @@ goog.mixin(arch.shape.view.Shape.prototype, goog.events.EventHandler.prototype);
 arch.shape.view.Shape.prototype.build = function(parent) {
 	var self = this;
 
-	var img = /** @type {!jQuery} */($('<img>').prop('src', this.model.url));;
-	this.dom = $('<div class="shape"></div>').append(img).appendTo(parent).mousedown(function() {
-		self.dom.css('opacity', '.7');
-	}).mouseup(function() {
-		self.dom.css('opacity', '');
-	})['draggable']({
-		'start': function() {
-			self.model.disconnect();
-		},
-		'stop': function() {
-			self.dom.css('opacity', '');
-			self.model.setPosition(arch.dom.getPosition($(this)));
-			var c = self.model.closestConnections();
-			if(c && c.a.distance(c.b) < 50) {
-				c.a.connect(c.b);
-				self.emphasize();
-			}
-		},
-		'containment': parent
-	});
-	self.refreshSize()
+	var img = /** @type {!jQuery} */($('<img draggable="false">').prop('src', this.model.url));
+	this.dom = $('<div class="shape"></div>').append(img).appendTo(parent);
+	this.refreshSize()
 
 	this.registerDisposable(new arch.dom.Disposable(this.dom));
 };
 
+arch.shape.view.Shape.prototype.hitTest = function(position) {
+	return this.model.hitTest(position);
+};
+
+arch.shape.view.Shape.prototype.startMove = function() {
+	this.dom.css('opacity', '.7');
+	this.dom.css('z-index', '10');
+};
+
+arch.shape.view.Shape.prototype.move = function(position) {
+	this.model.setPosition(position);
+};
+
+arch.shape.view.Shape.prototype.stopMove = function() {
+	this.dom.css('opacity', '1');
+	this.dom.css('z-index', '');
+	var c = this.model.closestConnections();
+	if(c && c.a.distance(c.b) < 50) {
+		c.a.connect(c.b);
+	}
+};
+
 arch.shape.view.Shape.prototype.refreshSize = function() {
-	arch.dom.setSize(this.dom.find('img'), this.viewport.toDOMSize(this.model.size));
+	arch.dom.setSize(this.dom.find('img'), this.viewport.toDomSize(this.model.size));
 };
 
 arch.shape.view.Shape.prototype.refreshPosition = function() {
-	arch.dom.setPosition(this.dom, this.viewport.toDOMPosition(this.model.position));
+	arch.dom.setPosition(this.dom, this.viewport.toDomPosition(this.model.position));
 };
 
 arch.shape.view.Shape.prototype.destroy = function() {
 	this.dom.remove();
-};
-
-arch.shape.view.Shape.prototype.emphasize = function() {
-	//TODO
 };

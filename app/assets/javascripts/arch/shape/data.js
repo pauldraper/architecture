@@ -10,9 +10,9 @@ goog.require('goog.math.Coordinate');
  * @param {!Object} data
  * @return {!arch.shape.Shape}
  */
-arch.shape.data.toShape = function(data) {
-	var size = new goog.math.Coordinate(data['size']['w']/2, data['size']['h']/2);
-	return new arch.shape.Shape(data['img'], size);
+arch.shape.data.toShape = function(name, data) {
+	var size = new goog.math.Coordinate(data['size']['w'], data['size']['h']);
+	return new arch.shape.Shape(name, data['img'], size);
 };
 
 /**
@@ -21,7 +21,7 @@ arch.shape.data.toShape = function(data) {
  */
 arch.shape.data.toBuilding = function(data) {
 	var shapes = data['building']['shapes'].map(function(name) {
-		return arch.shape.data.toShape(data['shapes'][name]);
+		return arch.shape.data.toShape(name, data['shapes'][name]);
 	})
 	var shapesMap = goog.array.bucket(shapes, function(_, i) {
 		return data['building']['shapes'][i];
