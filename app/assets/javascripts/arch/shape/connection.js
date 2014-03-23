@@ -1,86 +1,47 @@
 goog.provide('arch.shape.Connection');
 
 goog.require('arch.array');
+goog.require('arch.lazy');
 goog.require('goog.array');
 goog.require('goog.math.Coordinate');
 
 /**
  * @constructor
- * @param {!arch.shape.Shape} shape
- * @param {!goog.math.Coordinate} position
+ * @param {!arch.shape.Shape} shapeA
+ * @param {!arch.shape.Shape} shapeB
  */
-arch.shape.Connection = function(shape, position) {
-	this.shape = shape;
-	shape.connections.push(this);
+arch.shape.Connection = function(shapeA, shapeB) {
+	/** @const */
+	this.shapeA = shapeA;
 
 	/** @const */
-	this.position = position;
+	this.shapeB = shapeB;
 
-	/** @type {arch.shape.Connection} */
-	this.connected = null;
-
-	/** @type {!Array.<!arch.shape.Connection>} */
-	this.connections = [];
-}; 
-
-/**
- * @param {!Array.<!arch.shape.Connection>} connections
- */
-arch.shape.Connection.prototype.setConnections = function(connections) {
-	this.connections = connections;
-};
-
-/**
- * @return {!Array.<!arch.shape.Connection>} connections
- */
-arch.shape.Connection.prototype.getAvailableConnections = function() {
-	return this.connections.filter(function(connection) {
-		return !connection.connected || connection.connected == this;
-	}, this);
+	shapeA.connections.push(this);
+	shapeB.connections.push(this);
 };
 
 /**
  * @return {!goog.math.Coordinate}
  */
-arch.shape.Connection.prototype.getPosition = function() {
-	return this.shape.toAbsolute(this.position);
+arch.shape.Connection.prototype.getCorrectOffset = function() {
+	return this.shapeB.getCorrectOffset(this.shapeA);
 };
 
 /**
- * @return {arch.shape.Connection}
+ * @return {!goog.math.Coordinate}
  */
-arch.shape.Connection.prototype.closest = function() {
-	var self = this;
-	return arch.array.minElement(this.getAvailableConnections(), function(connection) {
-		return self.distance(connection);
-	}) || null;
-};
-
-/**
- * @param {!arch.shape.Connection} connection
- */
-arch.shape.Connection.prototype.connect = function(connection) {
-	this.disconnect();
-
-	var curPosition = this.getPosition(),
-		newPosition = connection.getPosition();
-	var offset = goog.math.Coordinate.difference(newPosition, curPosition);
-	this.shape.setPosition(goog.math.Coordinate.sum(this.shape.getPosition(), offset));	
-	
-	this.connected = connection;
-	connection.connected = this;
-};
-
-arch.shape.Connection.prototype.disconnect = function() {
-	if(this.connected) {
-		this.connected.connected = null;
-		this.connected = null;
-	}
+arch.shape.Connection.prototype.getOffset = function() {
+	return this.shapeB.getOffset(this.shapeA);
 };
 
 /**
  * @return {number}
  */
-arch.shape.Connection.prototype.distance = function(connection) {
-	return goog.math.Coordinate.distance(this.getPosition(), connection.getPosition());
+arch.shape.Connection.prototype.getAccuracy = function() {
+	return goog.math.Coordinate.distance(this.getOffset(), this.getCorrectOffset());
+};
+
+arch.shape.Connection.prototype.other = function(shape) {
+	return this.shapeA === shape ? this.shapeB : this.shapeA;
 };

@@ -10,9 +10,10 @@ goog.require('goog.math.Coordinate');
  * @extends {goog.events.EventTarget}
  * @param {string} name
  * @param {string} url
+ * @param {!goog.math.Coordinate} correctPosition
  * @param {!goog.math.Coordinate} size
  */
-arch.shape.Shape = function(name, url, size) {
+arch.shape.Shape = function(name, url, size, correctPosition) {
 	goog.events.EventTarget.call(this);
 
 	var self = this;
@@ -23,6 +24,10 @@ arch.shape.Shape = function(name, url, size) {
 	/** @const */
 	this.url = url;
 
+	/** @const */
+	this.correctPosition = correctPosition;
+
+	/** @const */
 	this.size = size;
 
 	/** @type {!goog.math.Coordinate} */
@@ -48,10 +53,18 @@ arch.shape.Shape.prototype.setPosition = function(position) {
 	this.fireListeners('position', false, null);
 };
 
-arch.shape.Shape.prototype.disconnect = function() {
-	this.connections.forEach(function(connection) {
-		connection.disconnect();
-	});
+/**
+ * @return {!goog.math.Coordinate}
+ */
+arch.shape.Shape.prototype.getCorrectOffset = function(shape) {
+	return goog.math.Coordinate.difference(this.correctPosition, shape.correctPosition);
+};
+
+/**
+ * @return {!goog.math.Coordinate}
+ */
+arch.shape.Shape.prototype.getOffset = function(shape) {
+	return goog.math.Coordinate.difference(this.getPosition(), shape.getPosition());
 };
 
 /**
@@ -63,15 +76,20 @@ arch.shape.Shape.prototype.toAbsolute = function(position) {
 };
 
 /**
- * @return {?{a:!arch.shape.Connection, b:!arch.shape.Connection}}
+ * @param {!arch.shape.Shape} shape
  */
-arch.shape.Shape.prototype.closestConnections = function() {
-	var a = arch.array.minElement(this.connections, function(connection) {
-		var closest = connection.closest();
-		return closest ? connection.distance(closest) : Infinity;
-	});
-	return a ? {a:a, b:/** @type {!arch.shape.Connection} */(a.closest())}
-		: null;
+arch.shape.Shape.prototype.snapTo = function(shape) {
+	var position = goog.math.Coordinate.sum(shape.getPosition(), this.getCorrectOffset(shape));
+	return this.setPosition(position);
+};
+
+/**
+ * @return {arch.shape.Connection}
+ */
+arch.shape.Shape.prototype.closestConnection = function() {
+	return arch.array.minElement(this.connections, function(connection) {
+		return connection.getAccuracy();
+	}) || null;
 };
 
 /**
@@ -95,16 +113,15 @@ arch.shape.Shape.prototype.hitTest = function(position) {
 
 			var x = direction == 'a' ? position.x - this.position.x : this.position.x + this.size.x - position.x;
 			var y = position.y - this.position.y;
-			return x <= y + brickSize * 2
-				&& x >= y - (b - a) * brickSize - brickSize * 2;
+			return x <= y + brickSize
+				&& x >= y - (b - a) * brickSize - brickSize;
 		} else if(m = this.name.match(/limestone-([ab])/)) {
 			var direction = m[1];
 			var brickSize = this.size.x / 45;
 
 			var x = direction == 'a' ? position.x - this.position.x : this.position.x + this.size.x - position.x;
 			var y = position.y - this.position.y;
-			window.console.log(x, y, brickSize);
-			return Math.abs(x - y) < brickSize * 5;
+			return Math.abs(x - y) < brickSize * 3;
 		}
 		// end workaround
 		return true;

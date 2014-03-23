@@ -3,18 +3,12 @@ goog.provide('arch.array');
 goog.require('goog.array');
 
 /**
- * @param {!Array.<T>} array
- * @param {function(this:S,T):!Array.<T>} f
- * @param {S} self
+ * @param {!Array.<Array.<T>>} a
  * @return {!Array.<T>}
- * @template S, T
+ * @template T
  */
-arch.array.flatMap = function(array, f, self) {
-	var ret = [];
-	array.forEach(function(elem) {
-		goog.array.extend(ret, f.call(self, elem));
-	});
-	return ret;
+arch.array.flatten = function(a) {
+	return Array.prototype.concat.apply([], a);
 };
 
 /**

@@ -64,9 +64,9 @@ arch.shape.view.Shape.prototype.move = function(position) {
 arch.shape.view.Shape.prototype.stopMove = function() {
 	this.dom.css('opacity', '1');
 	this.dom.css('z-index', '');
-	var c = this.model.closestConnections();
-	if(c && c.a.distance(c.b) < 50) {
-		c.a.connect(c.b);
+	var c = this.model.closestConnection();
+	if(c.getAccuracy() < 50) {
+		this.model.snapTo(c.other(this.model));
 	}
 };
 

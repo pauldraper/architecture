@@ -5,14 +5,16 @@ goog.require('arch.shape.Connection');
 goog.require('arch.shape.Shape');
 goog.require('goog.array');
 goog.require('goog.math.Coordinate');
+goog.require('goog.object');
 
 /**
  * @param {!Object} data
  * @return {!arch.shape.Shape}
  */
-arch.shape.data.toShape = function(name, data) {
+arch.shape.data.toShape = function(name, data, positionData) {
 	var size = new goog.math.Coordinate(data['size']['w'], data['size']['h']);
-	return new arch.shape.Shape(name, data['img'], size);
+	var position = new goog.math.Coordinate(positionData['x'], positionData['y']);
+	return new arch.shape.Shape(name, data['img'], size, position);
 };
 
 /**
@@ -20,29 +22,20 @@ arch.shape.data.toShape = function(name, data) {
  * @return {!arch.shape.Building}
  */
 arch.shape.data.toBuilding = function(data) {
-	var shapes = data['building']['shapes'].map(function(name) {
-		return arch.shape.data.toShape(name, data['shapes'][name]);
-	})
-	var shapesMap = goog.array.bucket(shapes, function(_, i) {
-		return data['building']['shapes'][i];
-	});
-
-	data['connections'].forEach(function(datum) {
-		var a = datum[0],
-			b = datum[1];
-		var connectionsA = shapesMap[a['shape']].map(function(shape) {
-			return new arch.shape.Connection(shape, new goog.math.Coordinate(a['position']['x'], a['position']['y']));
-		});
-		var connectionsB = shapesMap[b['shape']].map(function(shape) {
-			return new arch.shape.Connection(shape, new goog.math.Coordinate(b['position']['x'], b['position']['y']));
-		});
-		connectionsA.forEach(function(connection) {
-			connection.setConnections(connectionsB);
-		});
-		connectionsB.forEach(function(connection) {
-			connection.setConnections(connectionsA);
+	var shapesMap = goog.object.map(data['shapes'], function(data, name) {
+		return data['positions'].map(function(positionData) {
+			return arch.shape.data.toShape(name, data, positionData);
 		});
 	});
 
+	data['connections'].forEach(function(data) {
+		shapesMap[data[0]].forEach(function(shapeA) {
+			shapesMap[data[1]].forEach(function(shapeB) {
+				new arch.shape.Connection(shapeA, shapeB);
+			});
+		});
+	});
+
+	var shapes = arch.array.flatten(goog.object.getValues(shapesMap));
 	return new arch.shape.Building(data['building']['displayName'], data['background'], shapes);
 };

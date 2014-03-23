@@ -21,6 +21,14 @@ arch.gui.map.Gui = function(dom) {
 		'parthenon',
 		'Parthenon (Greece)',
 		'/assets/images/buildings/parthenon/thumbnail.jpg',
+		new goog.math.Coordinate(.6, .2),
+		10
+	);
+	new arch.gui.map.BuildingCard(
+		this,
+		'great-pyramid',
+		'Great Pyramid (Egypt)',
+		'/assets/images/buildings/great-pyramid/thumbnail.png',
 		new goog.math.Coordinate(.5, .5),
 		10
 	);

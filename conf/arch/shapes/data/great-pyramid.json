@@ -1,122 +1,192 @@
 {
 	"name": "Great Pyramid",
 	"building": {
-		"displayName": "Great Pyramid - Egypt",
-		"shapes": [
-			"bricks-0-5-a",
-			"bricks-0-5-b",
-			"bricks-5-10-a",
-			"bricks-5-10-b",
-			"bricks-10-15-a",
-			"bricks-10-15-b",
-			"bricks-15-20-a",
-			"bricks-15-20-b",
-			"bricks-20-25-a",
-			"bricks-20-25-b",
-			"bricks-25-30-a",
-			"bricks-25-30-b",
-			"bricks-30-35-a",
-			"bricks-30-35-b",
-			"bricks-35-40-a",
-			"bricks-35-40-b",
-			"bricks-40-45-a",
-			"bricks-40-45-b",
-			"bricks-45-50-a",
-			"bricks-45-50-b",
-			"limestone-a",
-			"limestone-b"
-		]
+		"displayName": "Great Pyramid - Egypt"
 	},
 	"connections": [
+		["bricks-0-5-a", "bricks-0-5-b"],
+		["bricks-5-10-a", "bricks-0-5-b"],
+		["bricks-10-15-a", "bricks-10-15-b"],
+		["bricks-15-20-a", "bricks-15-20-b"],
+		["bricks-20-25-a", "bricks-20-25-b"],
+		["bricks-25-30-a", "bricks-25-30-b"],
+		["bricks-30-35-a", "bricks-30-35-b"],
+		["bricks-35-40-a", "bricks-35-40-b"],
+		["bricks-40-45-a", "bricks-40-45-b"],
+		["bricks-45-50-a", "bricks-45-50-b"],
+		["bricks-0-5-a", "bricks-5-10-a"],
+		["bricks-5-10-a", "bricks-10-15-a"],
+		["bricks-10-15-a", "bricks-15-20-a"],
+		["bricks-15-20-a", "bricks-20-25-a"],
+		["bricks-20-25-a", "bricks-25-30-a"],
+		["bricks-25-30-a", "bricks-30-35-a"],
+		["bricks-35-40-a", "bricks-40-45-a"],
+		["bricks-40-45-a", "bricks-45-50-a"],
+		["bricks-45-50-a", "limestone-a"],
+		["bricks-0-5-b", "bricks-5-10-b"],
+		["bricks-5-10-b", "bricks-10-15-b"],
+		["bricks-10-15-b", "bricks-15-20-b"],
+		["bricks-15-20-b", "bricks-20-25-b"],
+		["bricks-20-25-b", "bricks-25-30-b"],
+		["bricks-25-30-b", "bricks-30-35-b"],
+		["bricks-35-40-b", "bricks-40-45-b"],
+		["bricks-40-45-b", "bricks-45-50-b"],
+		["bricks-45-50-b", "limestone-b"]
 	],
 	"shapes": {
 		"bricks-0-5-a": {
 			"img": "/assets/images/buildings/great-pyramid/bricks-0-5-a.svg",
-			"size": {"w":32, "h":32}
+			"size": {"w":35, "h":35},
+			"positions": [
+				{"x":0, "y":-35}
+			]
 		},
 		"bricks-0-5-b": {
 			"img": "/assets/images/buildings/great-pyramid/bricks-0-5-b.svg",
-			"size": {"w":32, "h":32}
+			"size": {"w":35, "h":35},
+			"positions": [
+				{"x":-35, "y":-35}
+			]
 		},
 		"bricks-5-10-a": {
 			"img": "/assets/images/buildings/great-pyramid/bricks-5-10-a.svg",
-			"size": {"w":64, "h":64}
+			"size": {"w":70, "h":70},
+			"positions": [
+				{"x":0, "y":-70}
+			]
 		},
 		"bricks-5-10-b": {
 			"img": "/assets/images/buildings/great-pyramid/bricks-5-10-b.svg",
-			"size": {"w":64, "h":64}
+			"size": {"w":70, "h":70},
+			"positions": [
+				{"x":-70, "y":-70}
+			]
 		},
 		"bricks-10-15-a": {
 			"img": "/assets/images/buildings/great-pyramid/bricks-10-15-a.svg",
-			"size": {"w":96, "h":96}
+			"size": {"w":105, "h":105},
+			"positions": [
+				{"x":0, "y":-105}
+			]
 		},
 		"bricks-10-15-b": {
 			"img": "/assets/images/buildings/great-pyramid/bricks-10-15-b.svg",
-			"size": {"w":96, "h":96}
+			"size": {"w":105, "h":105},
+			"positions": [
+				{"x":-105, "y":-105}
+			]
 		},
 		"bricks-15-20-a": {
 			"img": "/assets/images/buildings/great-pyramid/bricks-15-20-a.svg",
-			"size": {"w":128, "h":128}
+			"size": {"w":140, "h":140},
+			"positions": [
+				{"x":0, "y":-140}
+			]
 		},
 		"bricks-15-20-b": {
 			"img": "/assets/images/buildings/great-pyramid/bricks-15-20-b.svg",
-			"size": {"w":128, "h":128}
+			"size": {"w":140, "h":140},
+			"positions": [
+				{"x":-140, "y":-140}
+			]
 		},
 		"bricks-20-25-a": {
 			"img": "/assets/images/buildings/great-pyramid/bricks-20-25-a.svg",
-			"size": {"w":160, "h":160}
+			"size": {"w":175, "h":175},
+			"positions": [
+				{"x":0, "y":-175}
+			]
 		},
 		"bricks-20-25-b": {
 			"img": "/assets/images/buildings/great-pyramid/bricks-20-25-b.svg",
-			"size": {"w":160, "h":160}
+			"size": {"w":175, "h":175},
+			"positions": [
+				{"x":-175, "y":-175}
+			]
 		},
 		"bricks-25-30-a": {
 			"img": "/assets/images/buildings/great-pyramid/bricks-25-30-a.svg",
-			"size": {"w":182, "h":182}
+			"size": {"w":210, "h":210},
+			"positions": [
+				{"x":0, "y":-210}
+			]
 		},
 		"bricks-25-30-b": {
 			"img": "/assets/images/buildings/great-pyramid/bricks-25-30-b.svg",
-			"size": {"w":182, "h":182}
+			"size": {"w":210, "h":210},
+			"positions": [
+				{"x":-210, "y":-210}
+			]
 		},
 		"bricks-30-35-a": {
 			"img": "/assets/images/buildings/great-pyramid/bricks-30-35-a.svg",
-			"size": {"w":224, "h":224}
+			"size": {"w":245, "h":245},
+			"positions": [
+				{"x":0, "y":-245}
+			]
 		},
 		"bricks-30-35-b": {
 			"img": "/assets/images/buildings/great-pyramid/bricks-30-35-a.svg",
-			"size": {"w":224, "h":224}
+			"size": {"w":245, "h":245},
+			"positions": [
+				{"x":-245, "y":-245}
+			]
 		},
 		"bricks-35-40-a": {
 			"img": "/assets/images/buildings/great-pyramid/bricks-35-40-a.svg",
-			"size": {"w":256, "h":256}
+			"size": {"w":280, "h":280},
+			"positions": [
+				{"x":0, "y":-280}
+			]
 		},
 		"bricks-35-40-b": {
 			"img": "/assets/images/buildings/great-pyramid/bricks-35-40-b.svg",
-			"size": {"w":256, "h":256}
+			"size": {"w":280, "h":280},
+			"positions": [
+				{"x":-280, "y":-280}
+			]
 		},
 		"bricks-40-45-a": {
 			"img": "/assets/images/buildings/great-pyramid/bricks-40-45-a.svg",
-			"size": {"w":288, "h":288}
+			"size": {"w":315, "h":315},
+			"positions": [
+				{"x":0, "y":-315}
+			]
 		},
 		"bricks-40-45-b": {
 			"img": "/assets/images/buildings/great-pyramid/bricks-40-45-b.svg",
-			"size": {"w":288, "h":288}
+			"size": {"w":315, "h":315},
+			"positions": [
+				{"x":-315, "y":-315}
+			]
 		},
 		"bricks-45-50-a": {
 			"img": "/assets/images/buildings/great-pyramid/bricks-45-50-a.svg",
-			"size": {"w":320, "h":320}
+			"size": {"w":350, "h":350},
+			"positions": [
+				{"x":0, "y":-350}
+			]
 		},
 		"bricks-45-50-b": {
 			"img": "/assets/images/buildings/great-pyramid/bricks-45-50-b.svg",
-			"size": {"w":320, "h":320}
+			"size": {"w":350, "h":350},
+			"positions": [
+				{"x":-350, "y":-350}
+			]
 		},
 		"limestone-a": {
 			"img": "/assets/images/buildings/great-pyramid/limestone-a.svg",
-			"size": {"w":328, "h":328}
+			"size": {"w":357, "h":357},
+			"positions": [
+				{"x":0, "y":-357}
+			]
 		},
 		"limestone-b": {
 			"img": "/assets/images/buildings/great-pyramid/limestone-b.svg",
-			"size": {"w":328, "h":328}
+			"size": {"w":357, "h":357},
+			"positions": [
+				{"x":-357, "y":-357}
+			]
 		}
 	}
 }
