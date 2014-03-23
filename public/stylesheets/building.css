@@ -4,6 +4,13 @@ body {
 	margin: 0;
 }
 
+.viewport, .sidebar {
+		-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
 #loading {
 	position: fixed;
 	top: 0;
@@ -50,10 +57,6 @@ body {
 	right: 0;
 	bottom: 0;
 	left: 90px;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
 }
 
 .shape {
@@ -117,6 +120,10 @@ body {
   margin: 28px auto 28px auto;
 }
 
+.icon-button.disabled {
+  opacity: .5 ! important;
+}
+
 .icon-button:first-child {
   margin-top: 20px;
 }
@@ -134,4 +141,10 @@ body {
   height: 42px;
   width: 42px;
   margin-bottom: 5px;
+}
+
+.icon-button .zoom-in-logo, .icon-button .zoom-out-logo {
+  height: 34px;
+  width: 34px;
+  margin-bottom: 8px;
 }
