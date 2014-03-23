@@ -126,7 +126,7 @@
 			]
 		},
 		"bricks-30-35-b": {
-			"img": "/assets/images/buildings/great-pyramid/bricks-30-35-a.svg",
+			"img": "/assets/images/buildings/great-pyramid/bricks-30-35-b.svg",
 			"size": {"w":245, "h":245},
 			"positions": [
 				{"x":-245, "y":-245}
