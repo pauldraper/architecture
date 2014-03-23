@@ -78,6 +78,21 @@ arch.shape.view.Shape.prototype.refreshPosition = function() {
 	arch.dom.setPosition(this.dom, this.viewport.toDomPosition(this.model.position));
 };
 
-arch.shape.view.Shape.prototype.destroy = function() {
-	this.dom.remove();
+/**
+ * @param {!goog.math.Coordinate} position
+ * @param {function()=} done
+ */
+arch.shape.view.Shape.prototype.animateTo = function(position, done) {
+	var self = this;
+
+	var duration = 1000;
+
+	this.dom.css('transition', 'all ' + duration / 1000 + 's ease');
+	this.model.setPosition(position);
+
+	// TODO: use transition end event; unfortunately, this varies among browsers
+	setTimeout(function() {
+		self.dom.css('transition', '');
+		done && done();
+	}, duration);
 };

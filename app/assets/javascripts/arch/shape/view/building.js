@@ -1,6 +1,8 @@
 goog.provide('arch.shape.view.Building');
 
+goog.require('arch.async');
 goog.require('arch.dom.Disposable');
+goog.require('arch.math.Rect');
 goog.require('arch.shape.view.Shape');
 goog.require('goog.events.EventHandler');
 goog.require('goog.math.Coordinate');
@@ -50,3 +52,24 @@ arch.shape.view.Building.prototype.shuffle = function() {
 	}, this);
 };
 
+/**
+ * @param {function()=} done
+ */
+arch.shape.view.Building.prototype.showPreview = function(done) {
+	var viewportCenter = this.viewport.getCenter();
+	var correctCenter = arch.math.Rect.getCenter(this.model.getCorrectBounds());
+	var offset = goog.math.Coordinate.difference(viewportCenter, correctCenter);
+	var asyncs = this.shapes.map(function(shape) {
+		return function(done) {
+			var oldPosition = shape.model.getPosition();
+			var newPosition = goog.math.Coordinate.sum(offset, shape.model.getCorrectPosition());
+			shape.animateTo(newPosition, function() {
+				setTimeout(function() {
+					shape.animateTo(oldPosition, done);
+				}, 750);
+
+			});
+		};
+	});
+	arch.async.parallel(asyncs)(done);
+};

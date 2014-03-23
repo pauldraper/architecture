@@ -14,6 +14,8 @@ arch.gui.building.Viewport = function(gui) {
 
 	var self = this;
 
+	this.dragEnabled = true;
+
 	/** @type {?{
 	 *    shape: !arch.shape.view.Shape,
 	 *    originalPosition: !goog.math.Coordinate,
@@ -25,6 +27,9 @@ arch.gui.building.Viewport = function(gui) {
 	/** @type {!jQuery} */
 	this.dom = gui.dom.children('.viewport');
 	this.dom.mousedown(function(e) {
+		if(!self.dragEnabled) {
+			return;
+		}
 		if(self.dragInfo) {
 			self.dragInfo.shape.stopMove();
 		}
@@ -79,7 +84,7 @@ arch.gui.building.Viewport.prototype.setScale = function(scale) {
 	var newCenter = this.toDomPosition(new goog.math.Coordinate);
 	//TODO: fix
 	this.offset = goog.math.Coordinate.sum(this.offset, goog.math.Coordinate.difference(newCenter, oldCenter));
-	this.fireListeners('scale', false, null);
+	this.dispatchEvent('scale');
 };
 
 /**
@@ -110,6 +115,10 @@ arch.gui.building.Viewport.prototype.fromDomSize = function(size) {
 	return size.clone().scale(1 / this.scale);
 };
 
+arch.gui.building.Viewport.prototype.getCenter = function() {
+	return this.fromDomSize(new goog.math.Coordinate(this.dom.width() / 2, this.dom.height() / 2));
+};
+
 /**
  * @param {!goog.math.Coordinate} position
  * @return {arch.shape.view.Shape}
@@ -128,4 +137,17 @@ arch.gui.building.Viewport.prototype.maxZIndex = function() {
 	return Math.max.apply(Math, this.building.shapes.map(function(shape) {
 		return shape.dom.zIndex();
 	}));
+};
+
+arch.gui.building.Viewport.prototype.showPreview = function() {
+	var self = this;
+
+	if(!self.dragEnabled) { // double-click protection; TODO: is there a better way?
+		return;
+	}
+
+	this.dragEnabled = false;
+	this.building.showPreview(function() {
+		self.dragEnabled = true;
+	});
 };

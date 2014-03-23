@@ -4,6 +4,7 @@ goog.require('arch.array');
 goog.require('arch.dom');
 goog.require('goog.events.EventTarget');
 goog.require('goog.math.Coordinate');
+goog.require('goog.math.Rect');
 
 /**
  * @constructor
@@ -50,7 +51,21 @@ arch.shape.Shape.prototype.getPosition = function() {
  */
 arch.shape.Shape.prototype.setPosition = function(position) {
 	this.position = position;
-	this.fireListeners('position', false, null);
+	this.dispatchEvent('position');
+};
+
+/**
+ * @return {!goog.math.Coordinate}
+ */
+arch.shape.Shape.prototype.getCorrectPosition = function(shape) {
+	return this.correctPosition;
+};
+
+/**
+ * @return {!goog.math.Rect}
+ */
+arch.shape.Shape.prototype.getCorrectBounds = function() {
+	return new goog.math.Rect(this.correctPosition.x, this.correctPosition.y, this.size.x, this.size.y);
 };
 
 /**

@@ -17,3 +17,7 @@ arch.client.BuildingClient.prototype.setBuildingData = function(data) {
 	var building = arch.shape.data.toBuilding(data);
 	this.gui.setBuilding(building);
 };
+
+arch.client.BuildingClient.prototype.showPreview = function() {
+	this.gui.viewport.showPreview();
+};

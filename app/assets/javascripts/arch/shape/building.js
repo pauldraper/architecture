@@ -1,5 +1,6 @@
 goog.provide('arch.shape.Building');
 
+goog.require('arch.math.Rect');
 goog.require('arch.shape.Shape');
 goog.require('goog.events.EventTarget');
 
@@ -20,3 +21,13 @@ arch.shape.Building = function(displayName, background, shapes) {
 	this.shapes = shapes;
 };
 goog.mixin(arch.shape.Building.prototype, goog.events.EventTarget.prototype);
+
+/**
+ * @return {!goog.math.Rect}
+ */
+arch.shape.Building.prototype.getCorrectBounds = function() {
+	var bounds = this.shapes.map(function(shape) {
+		return shape.getCorrectBounds();
+	});
+	return arch.math.Rect.combine(bounds);
+};

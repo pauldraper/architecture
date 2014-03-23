@@ -11,9 +11,13 @@
 	<div id="gui">
 		<div class="viewport"></div>
 		<div class="sidebar">
-			<a class="back-to-map" href="@arch.controllers.routes.ArchController.index">
-				<img class="map-logo" src="@routes.Assets.at("images/map-icon.png")">
+			<a id="back-to-map" class="icon-button" href="@arch.controllers.routes.ArchController.index">
+				<img class="map-logo" src="@routes.Assets.at("images/buttons/map-icon.png")">
 				<div>Back to map</div>
+			</a>
+			<a id="show-preview" class="icon-button">
+				<img class="lightbulb-logo" src="@routes.Assets.at("images/buttons/lightbulb-icon.png")">
+				<div>Show hint</div>
 			</a>
 		</div>
 		<div class="button-bar" style="position:fixed; right: 10px; top: 60px">
@@ -29,6 +33,10 @@
 		@helpers.script("building", "javascripts/building.js")
 		<script>
 			var client = new arch.client.BuildingClient;
+			$('#show-preview').click(function() {
+				client.showPreview();
+			});
+
 			client.setBuildingData(@Html(buildingJson.toString));
 			$('#loading').fadeOut(200);
 		</script>
