@@ -32,6 +32,14 @@ arch.gui.map.Gui = function(dom) {
 		new goog.math.Coordinate(.5, .5),
 		10
 	);
+	new arch.gui.map.BuildingCard(
+		this,
+		'pont-du-gard',
+		'Pont du Gard (Roman Empire)',
+		'/assets/images/buildings/pont-du-gard/thumbnail.png',
+		new goog.math.Coordinate(.3, .15),
+		10
+	);
 };
 
 arch.gui.map.Gui.prototype.getMapContainer = function() {

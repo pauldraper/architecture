@@ -1,0 +1,136 @@
+{
+	"name": "Pont du Gard",
+	"building": {
+		"displayName": "Pont du Gard (Roman Empire)"
+	},
+	"connections": [
+		["bottom-1", "bottom-2"],
+		["bottom-2", "bottom-3"],
+		["bottom-4", "bottom-5"],
+		["middle-1", "middle-2"],
+		["middle-2", "middle-3"],
+		["middle-3", "middle-4"],
+		["middle-4", "middle-5"],
+		["top-1", "top-2"],
+		["top-2", "top-3"],
+		["top-3", "top-4"],
+		["top-4", "top-5"],
+		["bottom-1", "middle-1"],
+		["middle-1", "top-1"],
+		["bottom-2", "middle-2"],
+		["middle-2", "top-2"],
+		["bottom-3", "middle-3"],
+		["middle-3", "top-3"],
+		["bottom-4", "middle-4"],
+		["middle-4", "top-4"],
+		["bottom-5", "middle-5"],
+		["middle-5", "top-5"]
+	],
+	"shapes": {
+		"bottom-1": {
+			"img": "/assets/images/buildings/pont-du-gard/bottom-1.png",
+			"size": {"w":276, "h":242},
+			"positions": [
+				{"x":0, "y":316}
+			]
+		},
+		"middle-1": {
+			"img": "/assets/images/buildings/pont-du-gard/middle-1.png",
+			"size": {"w":276, "h":231},
+			"positions": [
+				{"x":0, "y":89}
+			]
+		},
+		"top-1": {
+			"img": "/assets/images/buildings/pont-du-gard/top-1.png",
+			"size": {"w":276, "h":91},
+			"positions": [
+				{"x":0, "y":3}
+			]
+		},
+		"bottom-2": {
+			"img": "/assets/images/buildings/pont-du-gard/bottom-2.png",
+			"size": {"w":340, "h":242},
+			"positions": [
+				{"x":276, "y":316}
+			]
+		},
+		"middle-2": {
+			"img": "/assets/images/buildings/pont-du-gard/middle-2.png",
+			"size": {"w":340, "h":230},
+			"positions": [
+				{"x":276, "y":89}
+			]
+		},
+		"top-2": {
+			"img": "/assets/images/buildings/pont-du-gard/top-2.png",
+			"size": {"w":340, "h":92},
+			"positions": [
+				{"x":276, "y":0}
+			]
+		},
+		"bottom-3": {
+			"img": "/assets/images/buildings/pont-du-gard/bottom-3.png",
+			"size": {"w":287, "h":241},
+			"positions": [
+				{"x":616, "y":317}
+			]
+		},
+		"middle-3": {
+			"img": "/assets/images/buildings/pont-du-gard/middle-3.png",
+			"size": {"w":287, "h":230},
+			"positions": [
+				{"x":616, "y":90}
+			]
+		},
+		"top-3": {
+			"img": "/assets/images/buildings/pont-du-gard/top-3.png",
+			"size": {"w":287, "h":93},
+			"positions": [
+				{"x":616, "y":0}
+			]
+		},
+		"bottom-4": {
+			"img": "/assets/images/buildings/pont-du-gard/bottom-4.png",
+			"size": {"w":276, "h":238},
+			"positions": [
+				{"x":903, "y":320}
+			]
+		},
+		"middle-4": {
+			"img": "/assets/images/buildings/pont-du-gard/middle-4.png",
+			"size": {"w":276, "h":233},
+			"positions": [
+				{"x":903, "y":92}
+			]
+		},
+		"top-4": {
+			"img": "/assets/images/buildings/pont-du-gard/top-4.png",
+			"size": {"w":276, "h":94},
+			"positions": [
+				{"x":903, "y":1}
+			]
+		},
+		"bottom-5": {
+			"img": "/assets/images/buildings/pont-du-gard/bottom-5.png",
+			"size": {"w":274, "h":237},
+			"positions": [
+				{"x":1179, "y":321}
+			]
+		},
+		"middle-5": {
+			"img": "/assets/images/buildings/pont-du-gard/middle-5.png",
+			"size": {"w":263, "h":232},
+			"positions": [
+				{"x":1179, "y":93}
+			]
+		},
+		"top-5": {
+			"img": "/assets/images/buildings/pont-du-gard/top-5.png",
+			"size": {"w":258, "h":95},
+			"positions": [
+				{"x":1179, "y":-2}
+			]
+		}
+	}
+}
