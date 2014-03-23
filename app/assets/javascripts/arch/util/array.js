@@ -12,6 +12,18 @@ arch.array.flatten = function(a) {
 };
 
 /**
+ * @param {!Array.<T>} a
+ * @param {function(this:S, T, number, !Array.<T>):!Array.<R>} f
+ * @param {S=} s
+ * @return {!Array.<R>}
+ * @template R, S, T
+ */
+arch.array.flatMap = function(a, f, s) {
+	// TODO: perhaps faster if done less functionally
+	return arch.array.flatten(a.map(f, s));
+};
+
+/**
  * @param {!Array.<T>} array
  * @param {function(T):number} f
  * @return {T|undefined}

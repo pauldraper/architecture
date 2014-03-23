@@ -59,15 +59,28 @@ arch.shape.view.Building.prototype.showPreview = function(done) {
 	var viewportCenter = this.viewport.getCenter();
 	var correctCenter = arch.math.Rect.getCenter(this.model.getCorrectBounds());
 	var offset = goog.math.Coordinate.difference(viewportCenter, correctCenter);
+
+	var usedPositions = []; // TODO: make better than O(n^2)
+
 	var asyncs = this.shapes.map(function(shape) {
+		var correctPosition = goog.array.find(shape.model.getCorrectPositions(), function(position) {
+			var used = usedPositions.some(function(usedPosition) {
+				return goog.math.Coordinate.equals(position, usedPosition);
+			});
+			if(!used) {
+				usedPositions.push(position);
+				return true;
+			}
+			return false;
+		});
+
 		return function(done) {
 			var oldPosition = shape.model.getPosition();
-			var newPosition = goog.math.Coordinate.sum(offset, shape.model.getCorrectPosition());
+			var newPosition = goog.math.Coordinate.sum(offset, correctPosition);
 			shape.animateTo(newPosition, function() {
 				setTimeout(function() {
 					shape.animateTo(oldPosition, done);
 				}, 750);
-
 			});
 		};
 	});

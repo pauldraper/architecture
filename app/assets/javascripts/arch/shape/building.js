@@ -26,7 +26,7 @@ goog.mixin(arch.shape.Building.prototype, goog.events.EventTarget.prototype);
  * @return {!goog.math.Rect}
  */
 arch.shape.Building.prototype.getCorrectBounds = function() {
-	var bounds = this.shapes.map(function(shape) {
+	var bounds = arch.array.flatMap(this.shapes, function(shape) {
 		return shape.getCorrectBounds();
 	});
 	return arch.math.Rect.combine(bounds);

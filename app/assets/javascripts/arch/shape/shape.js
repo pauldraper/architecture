@@ -11,10 +11,10 @@ goog.require('goog.math.Rect');
  * @extends {goog.events.EventTarget}
  * @param {string} name
  * @param {string} url
- * @param {!goog.math.Coordinate} correctPosition
+ * @param {!Array.<!goog.math.Coordinate>} correctPositions
  * @param {!goog.math.Coordinate} size
  */
-arch.shape.Shape = function(name, url, size, correctPosition) {
+arch.shape.Shape = function(name, url, size, correctPositions) {
 	goog.events.EventTarget.call(this);
 
 	var self = this;
@@ -26,7 +26,7 @@ arch.shape.Shape = function(name, url, size, correctPosition) {
 	this.url = url;
 
 	/** @const */
-	this.correctPosition = correctPosition;
+	this.correctPositions = correctPositions;
 
 	/** @const */
 	this.size = size;
@@ -55,24 +55,33 @@ arch.shape.Shape.prototype.setPosition = function(position) {
 };
 
 /**
- * @return {!goog.math.Coordinate}
+ * @return {!Array.<!goog.math.Coordinate>}
  */
-arch.shape.Shape.prototype.getCorrectPosition = function(shape) {
-	return this.correctPosition;
+arch.shape.Shape.prototype.getCorrectPositions = function() {
+	return this.correctPositions;
 };
 
 /**
- * @return {!goog.math.Rect}
+ * @return {!Array.<goog.math.Rect>}
  */
 arch.shape.Shape.prototype.getCorrectBounds = function() {
-	return new goog.math.Rect(this.correctPosition.x, this.correctPosition.y, this.size.x, this.size.y);
+	return this.getCorrectPositions().map(function(position) {
+		return new goog.math.Rect(position.x, position.y, this.size.x, this.size.y);
+	}, this);
 };
 
 /**
  * @return {!goog.math.Coordinate}
  */
 arch.shape.Shape.prototype.getCorrectOffset = function(shape) {
-	return goog.math.Coordinate.difference(this.correctPosition, shape.correctPosition);
+	var offsets = arch.array.flatMap(this.getCorrectPositions(), function(positionA) {
+		return shape.getCorrectPositions().map(function(positionB) {
+			return goog.math.Coordinate.difference(positionA, positionB);
+		});
+	});
+	return /** @type {!goog.math.Coordinate} */(arch.array.minElement(offsets, function(offset) {
+		return goog.math.Coordinate.magnitude(offset);
+	}));
 };
 
 /**

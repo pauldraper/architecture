@@ -17,8 +17,16 @@ arch.gui.building.Zoom = function(gui, zoomInDom, zoomOutDom) {
 	zoomOutDom.click(this.zoomOut.bind(this));
 
 	this.listen(this.gui.viewport, 'scale', function() {
-		zoomInDom.prop('disabled', !self.canZoomIn());
-		zoomOutDom.prop('disabled', !self.canZoomOut());
+		if(self.canZoomIn()) {
+			zoomInDom.removeClass('disabled');
+		} else {
+			zoomInDom.addClass('disabled');
+		}
+		if(self.canZoomOut()) {
+			zoomOutDom.removeClass('disabled');
+		} else {
+			zoomOutDom.addClass('disabled');
+		}
 	});
 };
 goog.mixin(arch.gui.building.Zoom.prototype, goog.events.EventHandler.prototype);
