@@ -40,6 +40,14 @@ arch.gui.map.Gui = function(dom) {
 		new goog.math.Coordinate(.3, .15),
 		10
 	);
+	new arch.gui.map.BuildingCard(
+		this,
+		'tikal-temple',
+		'Temple of the Great Jaguar',
+		'/assets/images/buildings/tikal-temple/thumbnail.png',
+		new goog.math.Coordinate(.1, .4),
+		10
+	);
 };
 
 arch.gui.map.Gui.prototype.getMapContainer = function() {

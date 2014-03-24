@@ -19,9 +19,8 @@ arch.gui.building.Viewport = function(gui) {
 
 	/**
 	 * @type {?{
-	 *   shape: !arch.shape.view.Shape,
-	 *   shapes: !Array.<{view:!arch.shape.view.Shape, originalPosition:!goog.math.Coordinate}>,
-	 *   anchor: !goog.math.Coordinate
+	 *   anchor: !goog.math.Coordinate,
+	 *   shapes: !Array.<{shape:!arch.shape.view.Shape, originalPosition:!goog.math.Coordinate}>
 	 * }}
 	 */
 	this.dragInfo = null;
@@ -32,35 +31,34 @@ arch.gui.building.Viewport = function(gui) {
 			return;
 		}
 		if(self.dragInfo) {
-			self.dragInfo.shape.stopMove();
+			self.dragInfo.shapes.forEach(function(obj) {
+				obj.shape.stopMove();
+			});
 		}
 		var position = self.fromDomPosition(self.eventDomPosition(e));
 		var shape = self.getShapeAt(position);
 		if(shape) {
 			$(this).removeClass('cursor-grab').addClass('cursor-grabbing');
-			var shapes = shape.model.getSnapped().map(function(model) {
-				return self.building.getView(model);
-			}).concat(shape).map(function(shape) {
+			var shapes = shape.model.getSnapped().map(function(shape) {
 				return {
-					view: shape,
-					originalPosition: shape.model.getPosition(),
+					shape: self.building.getView(shape),
+					originalPosition: shape.getPosition(), // for rounding errors?
 				};
 			});
 			self.dragInfo = {
-				shape: shape,
-				shapes: shapes,
-				anchor: position
+				anchor: position,
+				shapes: shapes
 			};
-			self.dragInfo.shapes.forEach(function(shape) {
-				shape.view.startMove();
+			self.dragInfo.shapes.forEach(function(obj) {
+				obj.shape.startMove();
 			});
 		}
 	}).mousemove(function(e) {
 		var position = self.fromDomPosition(self.eventDomPosition(e));
 		if(self.dragInfo) {
 			var offset = goog.math.Coordinate.difference(position, self.dragInfo.anchor);
-			self.dragInfo.shapes.forEach(function(shape) {
-				shape.view.model.setPosition(goog.math.Coordinate.sum(offset, shape.originalPosition));
+			self.dragInfo.shapes.forEach(function(obj) {
+				obj.shape.model.setPosition(goog.math.Coordinate.sum(offset, obj.originalPosition));
 			});
 		} else if(self.getShapeAt(position)) {
 			$(this).addClass('cursor-grab').removeClass('cursor-grabbing');
@@ -69,19 +67,27 @@ arch.gui.building.Viewport = function(gui) {
 		}
 	}).mouseup(function() {
 		if(self.dragInfo) {
-			var c = self.dragInfo.shape.model.closestConnection();
-			if(c.getAccuracy() < 50) {
-				var other = c.other(self.dragInfo.shape.model);
-				var offset = goog.math.Coordinate.difference(
-					self.dragInfo.shape.model.getCorrectOffset(other),
-					self.dragInfo.shape.model.getOffset(other)
-				);
-				self.dragInfo.shapes.forEach(function(shape) {
-					shape.view.model.offset(offset);
+			var shapeModels = self.dragInfo.shapes.map(function(obj) {
+				return obj.shape.model;
+			})
+			var obj = arch.array.minElement(arch.array.flatMap(shapeModels, function(shape) {
+				var c = shape.closestConnection(shapeModels);
+				return c ? [{
+					shape: shape,
+					connection: c,
+				}] : [];
+			}), function(obj) {
+				return obj.connection.getAccuracy();
+			});
+			if(obj && obj.connection.getAccuracy() < 50) {
+				var other = obj.connection.other(obj.shape);
+				var offset = goog.math.Coordinate.difference(obj.shape.getCorrectOffset(other), obj.shape.getOffset(other));
+				self.dragInfo.shapes.forEach(function(obj) {
+					obj.shape.model.offset(offset);
 				});
 			}
-			self.dragInfo.shapes.forEach(function(shape) {
-				shape.view.stopMove();
+			self.dragInfo.shapes.forEach(function(obj) {
+				obj.shape.stopMove();
 			});
 			self.dragInfo = null;
 			$(this).addClass('cursor-grab').removeClass('cursor-grabbing');

@@ -1,0 +1,109 @@
+{
+	"building": {
+		"displayName": "Temple of the Great Jaguar - Mesoamerica (732AD)"
+	},
+	"connections": [
+		["left-1", "left-2"],
+		["left-2", "left-3"],
+		["left-3", "left-4"],
+		["left-4", "left-5"],
+		["left-5", "left-6"],
+		["right-1", "right-2"],
+		["right-2", "right-3"],
+		["right-3", "right-4"],
+		["right-4", "right-5"],
+		["right-5", "right-6"],
+		["left-1", "right-1"],
+		["left-2", "right-2"],
+		["left-3", "right-3"],
+		["left-4", "right-4"],
+		["left-5", "right-5"],
+		["left-6", "right-6"]
+	],
+	"shapes": {
+		"left-1": {
+			"img": "/assets/images/buildings/tikal-temple/left-1.png",
+			"size": {"w":93, "h":105},
+			"positions": [
+				{"x":-93, "y":0}
+			]
+		},
+		"left-2": {
+			"img": "/assets/images/buildings/tikal-temple/left-2.png",
+			"size": {"w":111, "h":90},
+			"positions": [
+				{"x":-111, "y":105}
+			]
+		},
+		"left-3": {
+			"img": "/assets/images/buildings/tikal-temple/left-3.png",
+			"size": {"w":113, "h":80},
+			"positions": [
+				{"x":-113, "y":195}
+			]
+		},
+		"left-4": {
+			"img": "/assets/images/buildings/tikal-temple/left-4.png",
+			"size": {"w":202, "h":184},
+			"positions": [
+				{"x":-202, "y":275}
+			]
+		},
+		"left-5": {
+			"img": "/assets/images/buildings/tikal-temple/left-5.png",
+			"size": {"w":319, "h":183},
+			"positions": [
+				{"x":-319, "y":459}
+			]
+		},
+		"left-6": {
+			"img": "/assets/images/buildings/tikal-temple/left-6.png",
+			"size": {"w":398, "h":249},
+			"positions": [
+				{"x":-398, "y":642}
+			]
+		},
+		"right-1": {
+			"img": "/assets/images/buildings/tikal-temple/right-1.png",
+			"size": {"w":96, "h":106},
+			"positions": [
+				{"x":0, "y":-1}
+			]
+		},
+		"right-2": {
+			"img": "/assets/images/buildings/tikal-temple/right-2.png",
+			"size": {"w":111, "h":90},
+			"positions": [
+				{"x":0, "y":105}
+			]
+		},
+		"right-3": {
+			"img": "/assets/images/buildings/tikal-temple/right-3.png",
+			"size": {"w":118, "h":80},
+			"positions": [
+				{"x":0, "y":195}
+			]
+		},
+		"right-4": {
+			"img": "/assets/images/buildings/tikal-temple/right-4.png",
+			"size": {"w":224, "h":184},
+			"positions": [
+				{"x":0, "y":275}
+			]
+		},
+		"right-5": {
+			"img": "/assets/images/buildings/tikal-temple/right-5.png",
+			"size": {"w":308, "h":183},
+			"positions": [
+				{"x":0, "y":459}
+			]
+		},
+		"right-6": {
+			"img": "/assets/images/buildings/tikal-temple/right-6.png",
+			"size": {"w":402, "h":247},
+			"positions": [
+				{"x":0, "y":642}
+			]
+		}
+	}
+}

@@ -5,6 +5,7 @@ goog.require('arch.dom');
 goog.require('goog.events.EventTarget');
 goog.require('goog.math.Coordinate');
 goog.require('goog.math.Rect');
+goog.require('goog.structs.Set');
 
 /**
  * @constructor
@@ -65,9 +66,20 @@ arch.shape.Shape.prototype.offset = function(offset) {
  * @return {!Array.<!arch.shape.Shape>}
  */
 arch.shape.Shape.prototype.getSnapped = function() {
-	return arch.array.flatMap(this.connections, function(connection) {
-		return connection.isSnapped() ? [connection.other(this)] : [];
-	}, this);
+	var snapped = [];
+	var visited = new goog.structs.Set;
+	(function addSnapped(shape) {
+		if(!visited.contains(shape)) {
+			visited.add(shape);
+			snapped.push(shape);
+			shape.connections.forEach(function(connection) {
+				if(connection.isSnapped()) {
+					addSnapped(connection.other(shape));
+				}
+			});
+		}
+	})(this);
+	return snapped;
 };
 
 /**
@@ -116,10 +128,20 @@ arch.shape.Shape.prototype.toAbsolute = function(position) {
 };
 
 /**
+ * @param {!Array.<!arch.shape.Shape>=} exclude
  * @return {arch.shape.Connection}
  */
-arch.shape.Shape.prototype.closestConnection = function() {
-	return arch.array.minElement(this.connections, function(connection) {
+arch.shape.Shape.prototype.closestConnection = function(exclude) {
+	var connections;
+	if(exclude) {
+		var set = new goog.structs.Set(exclude);
+		connections = this.connections.filter(function(connection) {
+			return !set.contains(connection.other(this));
+		}, this);
+	} else {
+		connections = this.connections;
+	}
+	return arch.array.minElement(connections, function(connection) {
 		return connection.getAccuracy();
 	}) || null;
 };
