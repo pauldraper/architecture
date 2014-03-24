@@ -59,10 +59,28 @@ body {
 	left: 90px;
 }
 
+
+.cursor-grab {
+	/* TODO: remove Gmail dependency */
+	cursor: url(//mail.google.com/mail/images/2/openhand.cur), move;
+	cursor: url(//mail.google.com/mail/images/2/openhand.cur) 8 8, move;
+	cursor: -moz-grab;
+	cursor: -webkit-grab;
+	cursor: grab;
+}
+
+.cursor-grabbing {
+	/* TODO: remove Gmail dependency */
+	cursor: url(//mail.google.com/mail/images/2/closedhand.cur), move;
+	cursor: url(//mail.google.com/mail/images/2/closedhand.cur) 8 8, move;
+	cursor: -moz-grabbing;
+	cursor: -webkit-grabbing;
+	cursor: grabbing;
+}
+
 .shape {
 	position: absolute;
 	display: inline-block;
-	cursor: move;
 }
 
 .button {
@@ -114,10 +132,15 @@ body {
   cursor: pointer;
   opacity: .75;
   font-size: 13px;
-  line-height: 2px;
+  line-height: 13px;
   color: #000;
   text-decoration: none;
   margin: 28px auto 28px auto;
+}
+
+.icon-button img {
+	width: 48px;
+	height: 48px;
 }
 
 .icon-button.disabled {

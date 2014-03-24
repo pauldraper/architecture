@@ -9,6 +9,9 @@
 		"globalThis": "ERROR",
 		"visibility": "WARNING"
 	},
+	"define": {
+		"goog.DEBUG": false
+	},
 	"experimental-compiler-options": {
 		"languageIn": "ECMASCRIPT5"
 	},

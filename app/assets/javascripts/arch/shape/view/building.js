@@ -4,6 +4,7 @@ goog.require('arch.async');
 goog.require('arch.dom.Disposable');
 goog.require('arch.math.Rect');
 goog.require('arch.shape.view.Shape');
+goog.require('arch.structs.Map');
 goog.require('goog.events.EventHandler');
 goog.require('goog.math.Coordinate');
 
@@ -33,6 +34,12 @@ arch.shape.view.Building = function(viewport, model) {
 	this.shapes.forEach(function(shape) {
 		this.registerDisposable(shape);
 	}, this);
+
+	/** @const **/
+	this.shapeMap = new arch.structs.Map;
+	this.shapes.forEach(function(shape) {
+		this.shapeMap.set(shape.model, shape);
+	}, this);
 };
 goog.mixin(arch.shape.view.Building.prototype, goog.events.EventHandler.prototype);
 
@@ -42,6 +49,13 @@ goog.mixin(arch.shape.view.Building.prototype, goog.events.EventHandler.prototyp
 arch.shape.view.Building.prototype.build = function(parent) {
 	this.dom = $('<div class="building"></div>').appendTo(parent);
 	this.registerDisposable(new arch.dom.Disposable(this.dom));
+};
+
+/**
+ * @return {arch.shape.view.Shape}
+ */
+arch.shape.view.Building.prototype.getView = function(model) {
+	return /** @type {arch.shape.view.Shape} */(this.shapeMap.get(model) || null);
 };
 
 arch.shape.view.Building.prototype.shuffle = function() {

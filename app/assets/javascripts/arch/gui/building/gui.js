@@ -1,7 +1,7 @@
 goog.provide('arch.gui.building.Gui');
 
+goog.require('arch.gui.building.Sidebar');
 goog.require('arch.gui.building.Viewport');
-goog.require('arch.gui.building.Zoom');
 
 /**
  * @constructor
@@ -14,7 +14,7 @@ arch.gui.building.Gui = function(dom) {
 
 	this.viewport = new arch.gui.building.Viewport(this);
 
-	this.zoom = new arch.gui.building.Zoom(this, $('#zoom-in-button'), $('#zoom-out-button'));
+	this.sidebar = new arch.gui.building.Sidebar(this);
 };
 
 arch.gui.building.Gui.prototype.setTitle = function(title) {

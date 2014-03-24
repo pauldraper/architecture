@@ -55,6 +55,22 @@ arch.shape.Shape.prototype.setPosition = function(position) {
 };
 
 /**
+ * @param {!goog.math.Coordinate} offset
+ */
+arch.shape.Shape.prototype.offset = function(offset) {
+	this.setPosition(goog.math.Coordinate.sum(offset, this.getPosition()));
+};
+
+/**
+ * @return {!Array.<!arch.shape.Shape>}
+ */
+arch.shape.Shape.prototype.getSnapped = function() {
+	return arch.array.flatMap(this.connections, function(connection) {
+		return connection.isSnapped() ? [connection.other(this)] : [];
+	}, this);
+};
+
+/**
  * @return {!Array.<!goog.math.Coordinate>}
  */
 arch.shape.Shape.prototype.getCorrectPositions = function() {
@@ -62,7 +78,7 @@ arch.shape.Shape.prototype.getCorrectPositions = function() {
 };
 
 /**
- * @return {!Array.<goog.math.Rect>}
+ * @return {!Array.<!goog.math.Rect>}
  */
 arch.shape.Shape.prototype.getCorrectBounds = function() {
 	return this.getCorrectPositions().map(function(position) {
@@ -97,14 +113,6 @@ arch.shape.Shape.prototype.getOffset = function(shape) {
  */
 arch.shape.Shape.prototype.toAbsolute = function(position) {
 	return goog.math.Coordinate.sum(this.getPosition(), position.clone().scale(this.size.x, this.size.y));
-};
-
-/**
- * @param {!arch.shape.Shape} shape
- */
-arch.shape.Shape.prototype.snapTo = function(shape) {
-	var position = goog.math.Coordinate.sum(shape.getPosition(), this.getCorrectOffset(shape));
-	return this.setPosition(position);
 };
 
 /**

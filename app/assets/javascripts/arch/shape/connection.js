@@ -42,6 +42,13 @@ arch.shape.Connection.prototype.getAccuracy = function() {
 	return goog.math.Coordinate.distance(this.getOffset(), this.getCorrectOffset());
 };
 
+/**
+ * @return {boolean}
+ */
+arch.shape.Connection.prototype.isSnapped = function() {
+	return this.getAccuracy() <= 1;
+};
+
 arch.shape.Connection.prototype.other = function(shape) {
 	return this.shapeA === shape ? this.shapeB : this.shapeA;
 };

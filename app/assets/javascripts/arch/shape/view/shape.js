@@ -57,17 +57,9 @@ arch.shape.view.Shape.prototype.startMove = function() {
 	this.dom.css('z-index', '10');
 };
 
-arch.shape.view.Shape.prototype.move = function(position) {
-	this.model.setPosition(position);
-};
-
 arch.shape.view.Shape.prototype.stopMove = function() {
 	this.dom.css('opacity', '1');
 	this.dom.css('z-index', '');
-	var c = this.model.closestConnection();
-	if(c.getAccuracy() < 50) {
-		this.model.snapTo(c.other(this.model));
-	}
 };
 
 arch.shape.view.Shape.prototype.refreshSize = function() {
