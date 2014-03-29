@@ -1,6 +1,7 @@
 goog.provide('arch.gui.map.Gui');
 
 goog.require('arch.gui.common.Gui');
+goog.require('arch.gui.common.Dialog');
 goog.require('arch.gui.map.BuildingCard');
 goog.require('arch.dom');
 goog.require('goog.math.Coordinate');
@@ -48,6 +49,13 @@ arch.gui.map.Gui = function(dom) {
 		new goog.math.Coordinate(.2, .4),
 		10
 	);
+
+	this.dialog = new arch.gui.common.Dialog(this, 'Welcome!', 'Become the greatest architect of the ancient world!<br>To get started, choose one the buildings on the map.');
+	this.listenOnce(this.dialog, 'close', function() {
+		this.dialog.hideAndDispose();
+		this.dialog = null;
+	});
+
 };
 goog.inherits(arch.gui.map.Gui, arch.gui.common.Gui);
 

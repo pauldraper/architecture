@@ -111,8 +111,9 @@ arch.shape.Shape.prototype.getCorrectOffset = function(shape) {
 			return goog.math.Coordinate.difference(positionA, positionB);
 		});
 	});
+	var currentOffset = this.getOffset(shape);
 	return /** @type {!goog.math.Coordinate} */(arch.array.minElement(offsets, function(offset) {
-		return goog.math.Coordinate.magnitude(offset);
+		return goog.math.Coordinate.distance(currentOffset, offset);
 	}));
 };
 

@@ -1,0 +1,85 @@
+body {
+	cursor: default;
+}
+
+.dialog-overlay {
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background: rgba(50,50,50,.4);
+}
+
+.dialog {
+	position: absolute;
+	left: 50%;
+	width: 500px;
+	top: 20%;
+	margin-left: -250px;
+	background: #fff;
+	border-radius: 3px;
+	box-shadow: 0 0 10px 3px rgba(0,0,0,.5);
+	overflow: hidden;
+}
+
+.dialog-title {
+	padding: 6px;
+	text-align: center;
+	background: #02025A;
+	color: #fff;
+}
+
+.dialog-body {
+	padding: 9px;
+}
+
+.dialog-content {
+	padding: 0 5px 2px 5px;
+	line-height: 20px;
+}
+
+.dialog-buttons {
+	text-align: right;
+}
+
+.dialog-buttons .button {
+	margin-top: 0;
+}
+
+.dialog-close-button {
+	position: absolute;
+	top: 0;
+	right: 0;
+	padding: 6px;
+	opacity: .8;
+	cursor: pointer;
+}
+
+.dialog-close-button:hover {
+	opacity: 1;
+}
+
+.button {
+	display: inline-block;
+	padding: 5px 8px 5px 8px;
+	border-radius: 3px;
+	cursor: pointer;
+	margin: 3px;
+}
+
+.button-primary {
+	background: #02025A;
+	color: #fff;
+}
+
+.button-primary:hover {
+	background: #101089;
+}
+
+.close-icon-light {
+	background: url(/assets/images/close-icon.svg);
+	background-size: cover;
+	width: 18px;
+	height: 18px;
+}
