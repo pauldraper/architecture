@@ -1,6 +1,8 @@
 goog.provide('arch.gui.building.Viewport');
 
 goog.require('arch.dom.Disposable');
+goog.require('arch.math.Coordinate');
+goog.require('arch.math.Rect');
 goog.require('arch.shape.view.Building');
 goog.require('goog.events.EventTarget');
 goog.require('goog.math.Coordinate');
@@ -20,6 +22,7 @@ arch.gui.building.Viewport = function(gui) {
 	/**
 	 * @type {?{
 	 *   anchor: !goog.math.Coordinate,
+	 *   bounds: !goog.math.Rect,
 	 *   shapes: !Array.<{shape:!arch.shape.view.Shape, originalPosition:!goog.math.Coordinate}>
 	 * }}
 	 */
@@ -35,11 +38,12 @@ arch.gui.building.Viewport = function(gui) {
 				obj.shape.stopMove();
 			});
 		}
-		var position = self.fromDomPosition(self.eventDomPosition(e));
+		var position = self.fromEventPosition(e);
 		var shape = self.getShapeAt(position);
 		if(shape) {
 			$(this).removeClass('cursor-grab').addClass('cursor-grabbing');
-			var shapes = shape.model.getSnapped().map(function(shape) {
+			var shapes = shape.model.getSnapped();
+			var shapeData = shapes.map(function(shape) {
 				return {
 					shape: self.building.getView(shape),
 					originalPosition: shape.getPosition(), // for rounding errors?
@@ -47,16 +51,29 @@ arch.gui.building.Viewport = function(gui) {
 			});
 			self.dragInfo = {
 				anchor: position,
-				shapes: shapes
+				bounds: arch.math.Rect.combine(shapes.map(function(shape) {
+					return shape.getBounds();
+				})),
+				shapes: shapeData
 			};
-			self.dragInfo.shapes.forEach(function(obj) {
+			shapeData.forEach(function(obj) {
 				obj.shape.startMove();
 			});
 		}
 	}).mousemove(function(e) {
-		var position = self.fromDomPosition(self.eventDomPosition(e));
+		var position = self.fromEventPosition(e);
 		if(self.dragInfo) {
-			var offset = goog.math.Coordinate.difference(position, self.dragInfo.anchor);
+			var visibleBounds = self.getVisibleBounds();
+			var offsetBounds = new goog.math.Rect(
+				visibleBounds.left - self.dragInfo.bounds.left,
+				visibleBounds.top - self.dragInfo.bounds.top,
+				visibleBounds.width - self.dragInfo.bounds.width,
+				visibleBounds.height - self.dragInfo.bounds.height
+			);
+			var offset = arch.math.Coordinate.clamp(
+				goog.math.Coordinate.difference(position, self.dragInfo.anchor),
+				offsetBounds
+			);
 			self.dragInfo.shapes.forEach(function(obj) {
 				obj.shape.model.setPosition(goog.math.Coordinate.sum(offset, obj.originalPosition));
 			});
@@ -102,19 +119,34 @@ arch.gui.building.Viewport = function(gui) {
 
 	this.offset = new goog.math.Coordinate;
 
-	// TODO: do something different
+	/** @type {goog.math.Rect} */
+	this.bounds = null;
+
+	$(window).resize(function() {
+		self.refreshOffset();
+	});
+
+	// TODO: do this differently
 	$('#shuffle').click(function() {
 		self.building.shuffle();
 	});
 };
 goog.mixin(arch.gui.building.Viewport.prototype, goog.events.EventTarget.prototype);
 
-arch.gui.building.Viewport.prototype.eventDomPosition = function(e) {
-	return goog.math.Coordinate.difference(new goog.math.Coordinate(e.pageX, e.pageY), arch.dom.getDocumentPosition(this.dom));
+arch.gui.building.Viewport.prototype.fromEventPosition = function(e) {
+	var domPosition = goog.math.Coordinate.difference(new goog.math.Coordinate(e.pageX, e.pageY), arch.dom.getDocumentPosition(this.dom));
+	return this.fromDomPosition(domPosition);
 };
 
 arch.gui.building.Viewport.prototype.setBuilding = function(building) {
 	this.building = new arch.shape.view.Building(this, building);
+
+	var bounds = this.building.model.getCorrectBounds();
+	var center = bounds.getCenter();
+	this.bounds = bounds.translate(center.clone().scale(-1)).scale(1.5).translate(center);
+	this.refreshOffset();
+	this.setScale(Math.min(this.dom.width() / this.bounds.width, this.dom.height() / this.bounds.height));
+
 	this.building.shuffle();
 };
 
@@ -122,12 +154,14 @@ arch.gui.building.Viewport.prototype.setBuilding = function(building) {
  * @param {number} scale
  */
 arch.gui.building.Viewport.prototype.setScale = function(scale) {
-	var oldCenter = this.toDomPosition(new goog.math.Coordinate);
 	this.scale = scale;
-	var newCenter = this.toDomPosition(new goog.math.Coordinate);
-	//TODO: fix
-	this.offset = goog.math.Coordinate.sum(this.offset, goog.math.Coordinate.difference(newCenter, oldCenter));
+	this.refreshOffset();
 	this.dispatchEvent('scale');
+};
+
+arch.gui.building.Viewport.prototype.refreshOffset = function() {
+	this.offset = this.bounds.getCenter().scale(-this.scale).translate(this.dom.width() / 2, this.dom.height() / 2);
+	this.dispatchEvent('offset');
 };
 
 /**
@@ -148,7 +182,7 @@ arch.gui.building.Viewport.prototype.toDomSize = function(size) {
  * @param {!goog.math.Coordinate} position
  */
 arch.gui.building.Viewport.prototype.fromDomPosition = function(position) {
-	return goog.math.Coordinate.difference(this.fromDomSize(position), this.offset);
+	return this.fromDomSize(goog.math.Coordinate.difference(position, this.offset));
 };
 
 /**
@@ -156,6 +190,12 @@ arch.gui.building.Viewport.prototype.fromDomPosition = function(position) {
  */
 arch.gui.building.Viewport.prototype.fromDomSize = function(size) {
 	return size.clone().scale(1 / this.scale);
+};
+
+arch.gui.building.Viewport.prototype.getVisibleBounds = function() {
+	var position = this.fromDomPosition(new goog.math.Coordinate);
+	var size = this.fromDomSize(new goog.math.Coordinate(/** @type {number} */(this.dom.width()), /** @type {number} */(this.dom.height())));
+	return new goog.math.Rect(position.x, position.y, size.x, size.y);
 };
 
 arch.gui.building.Viewport.prototype.getCenter = function() {

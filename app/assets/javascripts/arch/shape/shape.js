@@ -55,6 +55,10 @@ arch.shape.Shape.prototype.setPosition = function(position) {
 	this.dispatchEvent('position');
 };
 
+arch.shape.Shape.prototype.getBounds = function() {
+	return new goog.math.Rect(this.position.x, this.position.y, this.size.x, this.size.y);
+};
+
 /**
  * @param {!goog.math.Coordinate} offset
  */

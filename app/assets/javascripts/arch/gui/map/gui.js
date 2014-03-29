@@ -1,17 +1,17 @@
 goog.provide('arch.gui.map.Gui');
 
+goog.require('arch.gui.common.Gui');
 goog.require('arch.gui.map.BuildingCard');
 goog.require('arch.dom');
 goog.require('goog.math.Coordinate');
 
 /**
  * @constructor
+ * @extends {arch.gui.common.Gui}
  * @param {!jQuery} dom
  */
 arch.gui.map.Gui = function(dom) {
-	var me = this;
-
-	this.dom = dom;
+	arch.gui.common.Gui.call(this, dom);
 
 	this.resizeMap();
 	$(window).resize(this.resizeMap.bind(this));
@@ -21,7 +21,7 @@ arch.gui.map.Gui = function(dom) {
 		'parthenon',
 		'Parthenon (Greece)',
 		'/assets/images/buildings/parthenon/thumbnail.jpg',
-		new goog.math.Coordinate(.6, .2),
+		new goog.math.Coordinate(.6, .18),
 		10
 	);
 	new arch.gui.map.BuildingCard(
@@ -29,7 +29,7 @@ arch.gui.map.Gui = function(dom) {
 		'great-pyramid',
 		'Great Pyramid (Egypt)',
 		'/assets/images/buildings/great-pyramid/thumbnail.png',
-		new goog.math.Coordinate(.5, .5),
+		new goog.math.Coordinate(.54, .5),
 		10
 	);
 	new arch.gui.map.BuildingCard(
@@ -37,7 +37,7 @@ arch.gui.map.Gui = function(dom) {
 		'pont-du-gard',
 		'Pont du Gard (Roman Empire)',
 		'/assets/images/buildings/pont-du-gard/thumbnail.png',
-		new goog.math.Coordinate(.3, .15),
+		new goog.math.Coordinate(.38, .1),
 		10
 	);
 	new arch.gui.map.BuildingCard(
@@ -45,10 +45,11 @@ arch.gui.map.Gui = function(dom) {
 		'tikal-temple',
 		'Temple of the Great Jaguar',
 		'/assets/images/buildings/tikal-temple/thumbnail.png',
-		new goog.math.Coordinate(.1, .4),
+		new goog.math.Coordinate(.2, .4),
 		10
 	);
 };
+goog.inherits(arch.gui.map.Gui, arch.gui.common.Gui);
 
 arch.gui.map.Gui.prototype.getMapContainer = function() {
 	return this.dom.find('.world-map-container');
@@ -56,6 +57,7 @@ arch.gui.map.Gui.prototype.getMapContainer = function() {
 
 arch.gui.map.Gui.prototype.resizeMap = function() {
 	var worldMap = this.getMapContainer();
-	arch.dom.scaleToSize(worldMap, arch.dom.getSize($(window)));
+	var windowSize = arch.dom.getSize($(window))
+	arch.dom.scaleToSize(worldMap, new goog.math.Coordinate(Math.max(windowSize.x, 1200), Math.max(windowSize.y, 800)));
 	worldMap.css('margin-top', worldMap.height() / -2 + 'px');
 };

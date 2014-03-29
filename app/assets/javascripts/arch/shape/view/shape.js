@@ -28,9 +28,12 @@ arch.shape.view.Shape = function(viewport, model) {
 	this.listen(this.model, 'position', function() {
 		self.refreshPosition();
 	});
-	this.listen(this.viewport, 'scale', function() {
+	this.listen(this.viewport, 'offset', function() {
 		self.refreshPosition();
+	});
+	this.listen(this.viewport, 'scale', function() {
 		self.refreshSize();
+		self.refreshPosition();
 	});
 };
 goog.mixin(arch.shape.view.Shape.prototype, goog.events.EventHandler.prototype);
@@ -79,7 +82,7 @@ arch.shape.view.Shape.prototype.animateTo = function(position, done) {
 
 	var duration = 1000;
 
-	this.dom.css('transition', 'all ' + duration / 1000 + 's ease');
+	this.dom.css('transition', 'all ' + duration / 1000 + 's ease-out');
 	this.model.setPosition(position);
 
 	// TODO: use transition end event; unfortunately, this varies among browsers

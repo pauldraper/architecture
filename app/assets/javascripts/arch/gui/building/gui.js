@@ -2,15 +2,17 @@ goog.provide('arch.gui.building.Gui');
 
 goog.require('arch.gui.building.Sidebar');
 goog.require('arch.gui.building.Viewport');
+goog.require('arch.gui.common.Gui');
 
 /**
  * @constructor
+ * @extends {arch.gui.common.Gui}
  * @param {!jQuery} dom
  */
 arch.gui.building.Gui = function(dom) {
-	var me = this;
+	arch.gui.common.Gui.call(this, dom);
 
-	this.dom = dom;
+	var me = this;
 
 	this.viewport = new arch.gui.building.Viewport(this);
 
@@ -26,3 +28,4 @@ arch.gui.building.Gui.prototype.setBuilding = function(building) {
 	this.setTitle(building.displayName);
 	this.viewport.setBuilding(building);
 };
+goog.mixin(arch.gui.building.Gui.prototype, arch.gui.common.Gui.prototype);

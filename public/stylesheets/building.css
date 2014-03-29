@@ -17,14 +17,17 @@ body {
 	right: 0;
 	bottom: 0;
 	left: 0;
-	text-align: center;
-	font-size: 32px;
-	height: 100%;
 	background: #fff;
 }
 
 #loading > div {
-	margin-top: 40%;
+	position: absolute;
+	top: 40%;
+	right: 0;
+	left: 0;
+	font-size: 32px;
+	text-align: center;
+	color: #333;
 }
 
 .title-bar {
@@ -56,7 +59,8 @@ body {
 	top: 30px;
 	right: 0;
 	bottom: 0;
-	left: 90px;
+	left: 120px;
+	overflow: hidden;
 }
 
 
@@ -81,6 +85,13 @@ body {
 .shape {
 	position: absolute;
 	display: inline-block;
+}
+
+.shape img {
+	/*
+	-webkit-filter: drop-shadow(1px 1px 1px black);
+	filter: drop-shadow(2px,2px);
+	*/
 }
 
 .button {

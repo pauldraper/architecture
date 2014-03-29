@@ -2,7 +2,6 @@ goog.provide('arch.shape.view.Building');
 
 goog.require('arch.async');
 goog.require('arch.dom.Disposable');
-goog.require('arch.math.Rect');
 goog.require('arch.shape.view.Shape');
 goog.require('arch.structs.Map');
 goog.require('goog.events.EventHandler');
@@ -59,10 +58,10 @@ arch.shape.view.Building.prototype.getView = function(model) {
 };
 
 arch.shape.view.Building.prototype.shuffle = function() {
-	var width = this.viewport.dom.width();
-	var height = this.viewport.dom.height();
 	this.model.shapes.forEach(function(shape) {
-		shape.setPosition(new goog.math.Coordinate(Math.random()*(width-shape.size.x), Math.random()*(height-shape.size.y)));
+		var x = Math.random() * (this.viewport.bounds.width - shape.size.x) + this.viewport.bounds.left;
+		var y = Math.random() * (this.viewport.bounds.height - shape.size.y) + this.viewport.bounds.top;
+		shape.setPosition(new goog.math.Coordinate(x, y));
 	}, this);
 };
 
@@ -70,10 +69,6 @@ arch.shape.view.Building.prototype.shuffle = function() {
  * @param {function()=} done
  */
 arch.shape.view.Building.prototype.showPreview = function(done) {
-	var viewportCenter = this.viewport.getCenter();
-	var correctCenter = arch.math.Rect.getCenter(this.model.getCorrectBounds());
-	var offset = goog.math.Coordinate.difference(viewportCenter, correctCenter);
-
 	var usedPositions = []; // TODO: make better than O(n^2)
 
 	var asyncs = this.shapes.map(function(shape) {
@@ -89,11 +84,10 @@ arch.shape.view.Building.prototype.showPreview = function(done) {
 		});
 
 		return function(done) {
-			var oldPosition = shape.model.getPosition();
-			var newPosition = goog.math.Coordinate.sum(offset, correctPosition);
-			shape.animateTo(newPosition, function() {
+			var position = shape.model.getPosition();
+			shape.animateTo(correctPosition, function() {
 				setTimeout(function() {
-					shape.animateTo(oldPosition, done);
+					shape.animateTo(position, done);
 				}, 750);
 			});
 		};

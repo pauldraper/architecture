@@ -48,47 +48,25 @@ arch.gui.building.Sidebar = function(gui) {
 		this.zoomInButton.setEnabled(this.canZoomIn());
 		this.zoomOutButton.setEnabled(this.canZoomOut());
 	});
-
-	this.zoomLevels = [
-		.5,
-		.75,
-		1,
-		1.5,
-		2,
-	];
 };
 goog.mixin(arch.gui.building.Sidebar.prototype, goog.events.EventHandler.prototype);
 
-/**
- * @private
- * @return {number}
- */
-arch.gui.building.Sidebar.prototype.zoomLevelIndex = function() {
-	var i = goog.array.binarySearch(this.zoomLevels, this.gui.viewport.scale);
-	if(i < 0) {
-		i = -i - 1;
-	}
-	return i;
-};
-
 arch.gui.building.Sidebar.prototype.canZoomIn = function() {
-	return this.zoomLevelIndex() < this.zoomLevels.length;
+	return this.gui.viewport.scale < 6;
 };
 
 arch.gui.building.Sidebar.prototype.canZoomOut = function() {
-	return this.zoomLevelIndex() > 0;
+	return this.gui.viewport.scale > .1;
 };
 
 arch.gui.building.Sidebar.prototype.zoomIn = function() {
 	if(this.canZoomIn()) {
-		var scale = this.zoomLevels[this.zoomLevelIndex() + 1];
-		this.gui.viewport.setScale(scale);
+		this.gui.viewport.setScale(this.gui.viewport.scale * 1.5);
 	}
 };
 
 arch.gui.building.Sidebar.prototype.zoomOut = function() {
 	if(this.canZoomOut()) {
-		var scale = this.zoomLevels[this.zoomLevelIndex() - 1];
-		this.gui.viewport.setScale(scale);
+		this.gui.viewport.setScale(this.gui.viewport.scale / 1.5);
 	}
 };
