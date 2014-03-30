@@ -5,7 +5,7 @@ import sbt.Keys._
 object ApplicationBuild extends Build {
 
   val appName         = "architecture"
-  val appVersion      = "0.0-SNAPSHOT"
+  val appVersion      = "0.0"
 
   val appDependencies = Seq(
     "commons-io" % "commons-io" % "2.4"
