@@ -14,9 +14,7 @@ body {
 .dialog {
 	position: absolute;
 	left: 50%;
-	width: 500px;
 	top: 20%;
-	margin-left: -250px;
 	background: #fff;
 	border-radius: 3px;
 	box-shadow: 0 0 10px 3px rgba(0,0,0,.5);
@@ -36,7 +34,11 @@ body {
 
 .dialog-content {
 	padding: 0 5px 2px 5px;
-	line-height: 20px;
+	line-height: 22px;
+}
+
+.dialog-spacer {
+	height: 6px;
 }
 
 .dialog-buttons {

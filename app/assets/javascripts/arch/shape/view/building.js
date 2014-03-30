@@ -2,6 +2,7 @@ goog.provide('arch.shape.view.Building');
 
 goog.require('arch.async');
 goog.require('arch.dom.Disposable');
+goog.require('arch.gui.common.Dialog');
 goog.require('arch.shape.view.Shape');
 goog.require('arch.structs.Map');
 goog.require('goog.events.EventHandler');
@@ -93,4 +94,12 @@ arch.shape.view.Building.prototype.showPreview = function(done) {
 		};
 	});
 	arch.async.parallel(asyncs)(done);
+};
+
+arch.shape.view.Building.prototype.showIntroductionDialog = function() {
+	new arch.gui.common.Dialog(this.viewport.gui, 'Your assignment', this.model.beforeMessage, 650);
+};
+
+arch.shape.view.Building.prototype.showFinishedDialog = function() {
+	new arch.gui.common.Dialog(this.viewport.gui, 'Congratulations!', this.model.afterMessage, 650);
 };

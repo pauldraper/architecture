@@ -17,7 +17,13 @@ arch.gui.building.Viewport = function(gui) {
 
 	var self = this;
 
+	this.gui = gui;
+
+	/** @type {boolean} */
 	this.dragEnabled = true;
+
+	/** @type {boolean} */
+	this.stickyShapes = true;
 
 	/**
 	 * @type {?{
@@ -42,7 +48,7 @@ arch.gui.building.Viewport = function(gui) {
 		var shape = self.getShapeAt(position);
 		if(shape) {
 			$(this).removeClass('cursor-grab').addClass('cursor-grabbing');
-			var shapes = shape.model.getSnapped();
+			var shapes = self.stickyShapes ? shape.model.getSnapped() : [shape.model];
 			var shapeData = shapes.map(function(shape) {
 				return {
 					shape: self.building.getView(shape),
@@ -96,12 +102,25 @@ arch.gui.building.Viewport = function(gui) {
 			}), function(obj) {
 				return obj.connection.getAccuracy();
 			});
-			if(obj && obj.connection.getAccuracy() < 50) {
+			if(obj && obj.connection.getAccuracy() < 60) {
 				var other = obj.connection.other(obj.shape);
 				var offset = goog.math.Coordinate.difference(obj.shape.getCorrectOffset(other), obj.shape.getOffset(other));
-				self.dragInfo.shapes.forEach(function(obj) {
-					obj.shape.model.offset(offset);
+				var consistent = other.getSnapped().every(function(other) {
+					return shapeModels.every(function(shape) {
+						return goog.math.Coordinate.distance(
+							offset,
+							goog.math.Coordinate.difference(shape.getCorrectOffset(other), shape.getOffset(other))
+						) < 5;
+					});
 				});
+				if(consistent) {
+					self.dragInfo.shapes.forEach(function(obj) {
+						obj.shape.model.offset(offset);
+					});
+					if(self.building.model.isFinished()) {
+						self.dispatchEvent('finish');
+					}
+				}
 			}
 			self.dragInfo.shapes.forEach(function(obj) {
 				obj.shape.stopMove();

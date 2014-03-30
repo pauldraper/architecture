@@ -7,14 +7,17 @@ goog.require('goog.events.EventTarget');
  * @extends {goog.events.EventTarget}
  * @param {string} title
  * @param {string} content
+ * @param {number} width
  */
-arch.gui.common.Dialog = function(gui, title, content) {
+arch.gui.common.Dialog = function(gui, title, content, width) {
 	goog.events.EventTarget.call(this);
 
 	var self = this;
 
 	this.dom = $('<div class="dialog-overlay"></div>');
 	$('<div class="dialog"></div>')
+		.width(width)
+		.css('margin-left', '-' + width / 2 + 'px')
 		.append($('<div class="dialog-title"></div>').text(title))
 		.append($(
 			'<div class="dialog-body">'
@@ -27,10 +30,12 @@ arch.gui.common.Dialog = function(gui, title, content) {
 		.append($('<div class="dialog-close-button"><div class="close-icon-light"></div></div>'))
 		.appendTo(this.dom);
 
-	this.dom.find('.dialog-content').html(content);
+	this.dom.find('.dialog-content').html(content.replace(/\n/g, '<div class="dialog-spacer"></div>'));
 
 	this.dom.find('.button-primary, .dialog-close-button').click(function() {
-		self.dispatchEvent('close');
+		if(self.dispatchEvent('close')) {
+			self.hideAndDispose();
+		}
 	});
 
 	this.dom.appendTo(gui.dom);

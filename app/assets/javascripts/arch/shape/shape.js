@@ -156,15 +156,13 @@ arch.shape.Shape.prototype.closestConnection = function(exclude) {
  * @return {boolean}
  */
 arch.shape.Shape.prototype.hitTest = function(position) {
-	var inBox = this.position.x <= position.x
-		&& this.position.y <= position.y
-		&& this.position.x + this.size.x >= position.x
-		&& this.position.y + this.size.y >= position.y;
-	if(inBox) {
-		// start workaround for SVG hit test for Great Pyramid
+	if(this.getBounds().contains(position)) {
 		// TODO: find a better way
 		var m;
-		if(m = this.name.match(/bricks-(\d+)-(\d+)-([ab])/)) {
+		if(this.name == 'top') {
+			return (position.x - this.position.x) / this.size.x + (position.y - this.position.y) / this.size.y > .6
+				&& (1 - (position.x - this.position.x) / this.size.x) + (position.y - this.position.y) / this.size.y > .6
+		} if(m = this.name.match(/bricks-(\d+)-(\d+)-([ab])/)) {
 			var a = parseInt(m[1], 10);
 			var b = parseInt(m[2], 10);
 			var direction = m[3];
@@ -182,7 +180,6 @@ arch.shape.Shape.prototype.hitTest = function(position) {
 			var y = position.y - this.position.y;
 			return Math.abs(x - y) < brickSize * 3;
 		}
-		// end workaround
 		return true;
 	}
 	return false;

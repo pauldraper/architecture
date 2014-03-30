@@ -1,13 +1,24 @@
 {
-	"name": "Parthenon",
-	"building": {
-		"displayName": "Parthenon - Greece (438BC)"
-	},
 	"connections": [
 		["bottom", "column"],
 		["column", "middle"],
 		["middle", "top"]
 	],
+	"displayName": "Parthenon - Greece (438BC)",
+	"id": "parthenon",
+	"messages": {
+		"before": [
+			"In 490 BC in Athens, construction began on a sanctuary dedicated to Athena. It was to be built on the Acropolis, high rocky outcrop of the city.",
+			"In 480 BC, while still under construction, the temple, along with the rest of the Acropolis, was destroyed by the Persians. ",
+			"Four decades later, Pericles, leader of Athens, is rebuilding much of the Acropolis, funded by the Delian League. Your task is to rebuild the Parthenon as a temple worthy of Athena, goddess of Athens."
+		],
+		"after": [
+			"You have finished the temple dedicated to goddess Athena.",
+			"During the sixth century AD, it will be converted to a Christian church and become one of the most important Christian sites of its time. In the fifteenth century, the Ottoman Turks will use it as a mosque.",
+			"In the seventeenth century, during a Venetian attack, the Turks will be use the Parthenon as a gunpowder store. Tragically, it will be hit by a mortar, creating a massive explosion and causing severe damage.",
+			"However, much of the Parthenon will survive, and it will come to be possibly the most famous symbol of Athens, the Delian League, and ancient Greece."
+		]
+	},
 	"shapes": {
 		"bottom": {
 			"img": "/assets/images/buildings/parthenon/bottom.png",

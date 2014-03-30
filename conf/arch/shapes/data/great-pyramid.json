@@ -1,8 +1,4 @@
 {
-	"name": "Great Pyramid",
-	"building": {
-		"displayName": "Great Pyramid - Egypt"
-	},
 	"connections": [
 		["bricks-0-5-a", "bricks-0-5-b"],
 		["bricks-5-10-a", "bricks-0-5-b"],
@@ -33,6 +29,23 @@
 		["bricks-40-45-b", "bricks-45-50-b"],
 		["bricks-45-50-b", "limestone-b"]
 	],
+	"displayName": "Great Pyramid - Egypt (2565 BC)",
+	"id": "great-pyramid",
+	"messages": {
+		"before": [
+			"The Egyptian Pharaoh Khufu wants to build the largest pyramid ever, to serve as his tomb and gate to the afterlife.",
+			"The Pyramid of Khufu will be built at Giza. It will 481 feet tall and 756 feet wide.",
+			"To build a pyramid that large, you will have to use about 2.3 million blocks of stone weighing 2.5 tons each. If you work every day for the next twenty years, you will have to had 800 tons each day to finish.",
+			"The dimensions must be extremely precise and aligned. The four sides must have an average error of no more two inches, and the entire base must be flat and level to within half an inch."
+		],
+		"after": [
+			"You have completed the Pyramid of Khufu, or the Great Pyramid of Giza.",
+			"For nearly 4,000 years it will be the tallest man-made structure in the world.",
+			"The highly polished white limestone casing will eventually be removed by looters. By the time of the Middle Kingdom of Egypt, the treasures inside will have also been stolen.",
+			"Erosion and deterioration will eventually take twenty-five feet off of its height.",
+			"With few clues as to the method of construction, thousands of historians will speculate as to how you were able to accomplish such a feat without pulley, wheels, or iron tools."
+		]
+	},
 	"shapes": {
 		"bricks-0-5-a": {
 			"img": "/assets/images/buildings/great-pyramid/bricks-0-5-a.svg",

@@ -1,7 +1,4 @@
 {
-	"building": {
-		"displayName": "Temple of the Great Jaguar - Mesoamerica (732AD)"
-	},
 	"connections": [
 		["left-1", "left-2"],
 		["left-2", "left-3"],
@@ -20,6 +17,20 @@
 		["left-5", "right-5"],
 		["left-6", "right-6"]
 	],
+	"displayName": "Temple of the Great Jaguar - Mayan Empire (732 AD)",
+	"id": "tikal-temple",
+	"messages": {
+		"before": [
+			"Jasaw Chan K'awiil I, leader of the Mayan province Tikal, has commissioned you to build his tomb. The tomb will come to be known as the Temple of the Great Jaguar, or Tikal Temple I.",
+			"Unlike earlier funerary temples which have traditionally been built in Tikal's North Acropolis, this temple will be built on the eastern part of the Great Plaza of Tikal.",
+			"The temple will be 154 feet tall and have nine levels, symbolizing the nine levels of the underworld."
+		],
+		"after": [
+			"After the fall of Tikal in the 9th century due to food shortages, this temple and the rest of the Great Plaza will continue to be known to local inhabitants. However, it won't be known by the larger world until the 18th century, when several archaeological expeditions will map and photograph the area.",
+			"In 1951, a small airstrip will be built to allow additional visitors to see the ruins. The actual tomb inside Tikal Temple I will be discovered in 1962.",
+			"In 1964, a museum will be built at the complex, and it will become a major attraction for visitors from around the world."
+		]
+	},
 	"shapes": {
 		"left-1": {
 			"img": "/assets/images/buildings/tikal-temple/left-1.png",

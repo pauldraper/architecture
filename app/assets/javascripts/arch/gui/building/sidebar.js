@@ -12,6 +12,8 @@ goog.require('goog.events.EventHandler');
 arch.gui.building.Sidebar = function(gui) {
 	goog.events.EventHandler.call(this);
 
+	var self = this;
+
 	this.gui = gui;
 
 	this.dom = $('<div class="sidebar"></div>').appendTo(this.gui.dom);
@@ -40,9 +42,12 @@ arch.gui.building.Sidebar = function(gui) {
 	this.registerDisposable(this.shuffleButton);
 
 	$('<a class="icon-button"></a>')
-		.append($('<input type="checkbox">'))
+		.append($('<input type="checkbox" checked>'))
 		.append($('<div></div>').text('Sticky pieces'))
-		.appendTo(this.dom);
+		.appendTo(this.dom)
+		.change(function() {
+			self.gui.viewport.stickyShapes = this.checked;
+		});
 
 	this.listen(this.gui.viewport, 'scale', function() {
 		this.zoomInButton.setEnabled(this.canZoomIn());

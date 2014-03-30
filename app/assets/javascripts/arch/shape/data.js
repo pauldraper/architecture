@@ -40,5 +40,11 @@ arch.shape.data.toBuilding = function(data) {
 	});
 
 	var shapes = arch.array.flatten(goog.object.getValues(shapesMap));
-	return new arch.shape.Building(data['building']['displayName'], data['background'], shapes);
+	return new arch.shape.Building(
+		data['id'],
+		data['displayName'],
+		shapes,
+		data['messages']['before'].join('\n'),
+		data['messages']['after'].join('\n')
+	);
 };

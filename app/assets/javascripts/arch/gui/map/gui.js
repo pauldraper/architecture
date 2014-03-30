@@ -50,12 +50,18 @@ arch.gui.map.Gui = function(dom) {
 		10
 	);
 
-	this.dialog = new arch.gui.common.Dialog(this, 'Welcome!', 'Become the greatest architect of the ancient world!<br>To get started, choose one the buildings on the map.');
-	this.listenOnce(this.dialog, 'close', function() {
-		this.dialog.hideAndDispose();
-		this.dialog = null;
-	});
-
+	if(!arch.storage.user.messages.hasShownIntro()) {
+		this.dialog = new arch.gui.common.Dialog(
+			this,
+			'Welcome!',
+			'Become the greatest architect of the ancient world!\nTo get started, choose one the buildings on the map.',
+			500
+		);
+		this.listenOnce(this.dialog, 'close', function() {
+			this.dialog = null;
+			arch.storage.user.messages.setShownIntro();
+		});
+	}
 };
 goog.inherits(arch.gui.map.Gui, arch.gui.common.Gui);
 
