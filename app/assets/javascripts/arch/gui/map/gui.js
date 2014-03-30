@@ -22,7 +22,7 @@ arch.gui.map.Gui = function(dom) {
 		'parthenon',
 		'Parthenon (Greece)',
 		'/assets/images/buildings/parthenon/thumbnail.jpg',
-		new goog.math.Coordinate(.6, .18),
+		new goog.math.Coordinate(.62, .25),
 		10
 	);
 	new arch.gui.map.BuildingCard(
@@ -30,7 +30,7 @@ arch.gui.map.Gui = function(dom) {
 		'great-pyramid',
 		'Great Pyramid (Egypt)',
 		'/assets/images/buildings/great-pyramid/thumbnail.png',
-		new goog.math.Coordinate(.54, .5),
+		new goog.math.Coordinate(.58, .6),
 		10
 	);
 	new arch.gui.map.BuildingCard(
@@ -38,7 +38,7 @@ arch.gui.map.Gui = function(dom) {
 		'pont-du-gard',
 		'Pont du Gard (Roman Empire)',
 		'/assets/images/buildings/pont-du-gard/thumbnail.png',
-		new goog.math.Coordinate(.38, .1),
+		new goog.math.Coordinate(.4, .25),
 		10
 	);
 	new arch.gui.map.BuildingCard(
@@ -46,7 +46,7 @@ arch.gui.map.Gui = function(dom) {
 		'tikal-temple',
 		'Temple of the Great Jaguar',
 		'/assets/images/buildings/tikal-temple/thumbnail.png',
-		new goog.math.Coordinate(.2, .4),
+		new goog.math.Coordinate(.2, .5),
 		10
 	);
 

@@ -92,6 +92,8 @@ body {
 	-webkit-filter: drop-shadow(1px 1px 1px black);
 	filter: drop-shadow(2px,2px);
 	*/
+	-webkit-user-drag: none;
+	user-drag: none;
 }
 
 .icon-button {

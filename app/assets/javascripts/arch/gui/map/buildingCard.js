@@ -35,8 +35,8 @@ arch.gui.map.BuildingCard = function(gui, id, title, imageUrl, position, rotatio
 	}
 	this.dom.appendTo(gui.getMapContainer());
 	this.dom.css({
-		'margin-top': this.dom.height() / -2 + 'px',
-		'margin-left': this.dom.width() / -2 + 'px',
+		'margin-top': '-130px', // approximate
+		'margin-left': '-115px',
 	});
 
 	this.registerDisposable(new arch.dom.Disposable(this.dom));

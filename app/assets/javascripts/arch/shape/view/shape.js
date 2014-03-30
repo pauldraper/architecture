@@ -44,7 +44,7 @@ goog.mixin(arch.shape.view.Shape.prototype, goog.events.EventHandler.prototype);
 arch.shape.view.Shape.prototype.build = function(parent) {
 	var self = this;
 
-	var img = /** @type {!jQuery} */($('<img draggable="false">').prop('src', this.model.url));
+	var img = /** @type {!jQuery} */($('<img draggable="false" ondragstart="return false">').prop('src', this.model.url));
 	this.dom = $('<div class="shape"></div>').append(img).appendTo(parent);
 	this.refreshSize()
 
