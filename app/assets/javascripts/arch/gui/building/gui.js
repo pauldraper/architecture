@@ -24,6 +24,12 @@ arch.gui.building.Gui = function(dom) {
 	});
 
 	this.sidebar = new arch.gui.building.Sidebar(this);
+
+	$(window)['bind']('keydown', 'alt+c', function() {
+		self.viewport.building.finish(true, function() {
+			self.viewport.dispatchEvent('finish');
+		});
+	});
 };
 goog.mixin(arch.gui.building.Gui.prototype, arch.gui.common.Gui.prototype);
 

@@ -67,9 +67,10 @@ arch.shape.view.Building.prototype.shuffle = function() {
 };
 
 /**
+ * @param {boolean} permanent
  * @param {function()=} done
  */
-arch.shape.view.Building.prototype.showPreview = function(done) {
+arch.shape.view.Building.prototype.finish = function(permanent, done) {
 	var usedPositions = []; // TODO: make better than O(n^2)
 
 	var asyncs = this.shapes.map(function(shape) {
@@ -85,12 +86,18 @@ arch.shape.view.Building.prototype.showPreview = function(done) {
 		});
 
 		return function(done) {
-			var position = shape.model.getPosition();
-			shape.animateTo(correctPosition, function() {
-				setTimeout(function() {
-					shape.animateTo(position, done);
-				}, 750);
-			});
+			if(permanent) {
+				shape.animateTo(correctPosition, done && function() {
+					setTimeout(done, 300);
+				});
+				var position = shape.model.getPosition();
+			} else {
+				shape.animateTo(correctPosition, function() {
+					setTimeout(function() {
+						shape.animateTo(position, done);
+					}, 750);
+				});
+			}
 		};
 	});
 	arch.async.parallel(asyncs)(done);

@@ -249,7 +249,7 @@ arch.gui.building.Viewport.prototype.showPreview = function() {
 	}
 
 	this.dragEnabled = false;
-	this.building.showPreview(function() {
+	this.building.finish(false, function() {
 		self.dragEnabled = true;
 	});
 };
