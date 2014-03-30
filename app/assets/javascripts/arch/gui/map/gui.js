@@ -54,7 +54,8 @@ arch.gui.map.Gui = function(dom) {
 		this.dialog = new arch.gui.common.Dialog(
 			this,
 			'Welcome!',
-			'Become the greatest architect of the ancient world!\nTo get started, choose one the buildings on the map.',
+			'Become the greatest architect of the ancient world!'
+			+ '\nTo get started, choose one the buildings on the map.',
 			500
 		);
 		this.listenOnce(this.dialog, 'close', function() {
